@@ -1,0 +1,49 @@
+.filterAndNots{
+    width: 400px;
+    height: 200px;
+    border: 3px solid red;
+}
+ .form{
+    border: 1px solid black;
+    width: 500px;
+    height: 300px;
+    float: right;
+    text-align: center;
+}
+.todo-activity{
+    width: 400px;
+    height: 200px;
+    border: 1px solid red;
+    float:inherit;
+}
+.kategori{
+    min-width: 100px;
+    min-height: 40px;
+    right: 0;
+    border: 1px solid ;
+    float: right;
+    margin: 10px;
+}
+.kategori-content{
+    display: none;
+    position:absolute;
+    min-width: auto;
+    z-index: 1;
+    float: left;
+}
+.kategori-content a{
+    background-color: aliceblue;
+    border: 1px solid black;
+    color: black;
+    text-decoration: none;
+    padding:  12px 15px;
+    min-width: 100px;
+    display: block;
+}
+.drop-contaner:hover .kategori-content{ display: block;}
+
+#beskrivning{
+    position: ;
+    min-width: 350px;
+    min-height: 100px;
+}

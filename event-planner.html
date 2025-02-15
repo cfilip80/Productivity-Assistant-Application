@@ -3,11 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styleTest.css">
     <script defer src="script/script.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <h2> hej alla</h2>
+
+    <div class="filterAndNots">
+        <button type="button" id="filter">Filter</button>
+    </div>
+    <div class="contaner">
+        <div class="form">            
+            <h3 class="heading">Create new Todo & Activity</h3>
+            <div class="todo-activity">
+                <div class="titelAndKategori">
+                    <input type="text" id="titel" name="titel" placeholder="Enter Titel">
+                    <div class="drop-contaner">
+                        <button class="kategori">Category</button>
+                        <div class="kategori-content">
+                            <a href="#" class="health">Health</a>
+                            <a href="#" class="household">Household</a>
+                            <a href="#" class="workrelated">Workrelated</a>
+                            <a href="#" class="leisure">Leisure</a>
+                        </div>
+                    </div>
+                    <input type="text" id="beskrivning" name="beskrivning" placeholder="Enter Description">
+                    <button type="button" id="add">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
