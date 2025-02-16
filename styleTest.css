@@ -8,13 +8,13 @@
     width: 500px;
     height: 300px;
     float: right;
-    text-align: center;
+    
 }
 .todo-activity{
     width: 400px;
     height: 200px;
     border: 1px solid red;
-    float:inherit;
+    
 }
 .kategori{
     min-width: 100px;
