@@ -23,6 +23,7 @@
     border: 1px solid ;
     float: right;
     margin: 10px;
+
 }
 .kategori-content{
     display: none;
@@ -43,7 +44,7 @@
 .drop-contaner:hover .kategori-content{ display: block;}
 
 #beskrivning{
-    position: ;
+    
     min-width: 350px;
     min-height: 100px;
 }
