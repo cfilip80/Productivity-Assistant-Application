@@ -291,7 +291,7 @@ button:hover {
 .todo-sorting-button:hover .todo-sorting-content{
     display: grid;
     padding: 12px 16px;
-    width: 150px;
+    width: 200px;
     gap: 10px;
     border-radius: 5px;
     justify-content: center;
