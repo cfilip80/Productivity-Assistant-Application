@@ -1,4 +1,4 @@
-*, *::before, *::after {
+ *, *::before, *::after {
     box-sizing: border-box;
 }
 
@@ -183,4 +183,116 @@ button:hover {
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .habits-dropdown:hover .dropbtn {background-color: #3e8e41;}
 
-  /* */
+  /* Todos and activities css */
+
+  .todo-list-container{
+    display: inline-block;
+    width:50%;
+    height:1000px;
+    border:1px solid black;
+}
+
+.todos-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:50px;
+    border: 1px solid black;
+}
+
+#filter, #sorting {
+    background-color: #28a745;
+    width: 100px;
+    height:40px;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 5px;
+    padding-top: 5px;
+    margin: 0 20px;
+}
+
+.todo-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+    height:1000px;
+    border:1px solid black;
+}
+.todo-form{
+    display: grid;
+    width: 80%;
+    height: auto;
+    background: white;
+    padding: 40px 100px 100px 100px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    text-align: center;
+    gap: 5px;
+}
+#subId{
+    height: 40px;
+    background-color: #28a745;
+    border-radius: 5px;
+}
+#sök--filtrering, #sortering-button{
+    height: 30px;
+    background-color: #28a745;
+    border-radius: 5px;
+}
+#category, #deadline {
+    height: 35px;
+    border-radius: 5px;
+}
+.todo-title-container{
+    display: grid;
+}
+#title{
+    height: 30px;
+    border-radius: 5px;
+}
+.todo-status-container {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+}
+
+/* .todo-sorting-button {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+} */
+.todo-dropdown-content {
+    display: none;
+    position:absolute;
+    background: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 14px; 
+    z-index: 1;
+}
+.todo-filter-button:hover .todo-dropdown-content{
+    display: grid;
+    padding: 12px 16px;
+    width: 150px;
+    gap: 10px;
+    border-radius: 5px;
+}
+.todo-sorting-content{
+    display: none;
+    position: absolute;
+    background: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 14px;
+    z-index: 1;
+}
+.todo-sorting-button:hover .todo-sorting-content{
+    display: grid;
+    padding: 12px 16px;
+    width: 150px;
+    gap: 10px;
+    border-radius: 5px;
+    justify-content: center;
+}
