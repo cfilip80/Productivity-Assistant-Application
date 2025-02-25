@@ -250,7 +250,7 @@ button:hover {
 .todo-title-container{
     display: grid;
 }
-#title{
+#todo-title{
     height: 30px;
     border-radius: 5px;
 }
