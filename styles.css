@@ -23,6 +23,11 @@ main {
     border:1px solid black;
 }
 
+.habits-list-container h1 {
+    padding-top: 20px;
+
+}
+
 .habits-button-container {
     display: flex;
     flex-direction: row;

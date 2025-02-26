@@ -30,6 +30,7 @@
                     </div>
                 </div>
             </div>
+            <h1>List of Habits</h1>
             <div class="habit" id="habits-list">
                 <div class="habits-text-container">
                     <div><h3>Title:</h3><p id="title"></p></div>
@@ -48,21 +49,20 @@
                 <form id="new-habit">
                     <fieldset class="habits-fieldset">
                         <legend class="habits-legend">Create a New Habit</legend>
-                        <label class="habits-label" for="habit">Title:</label>
-                        <input class=".habits-input" type="text" id="habit" name="habit">
-                        <label class="habits-label" for="repetitions">Repetitions:</label>
-                        <input class=".habits-input" type="text" id="repetitions" name="repetitions">
+                        <label class="habits-label" for="habits-title">Title:</label>
+                        <input class="habits-input" type="text" id="habits-title" name="habits-title" required>
+                        <label class="habits-label" for="habits-repetitions">Repetitions:</label>
+                        <input class="habits-input" type="number" id="habits-repetitions" name="habits-repetitions" required>
                         <div class="habits-radio-buttons">
-                            <label class="habits-label" for="priority">Priority:</label>
-                            <input class="habits-input" type="radio" id="low" name="priority" value="Low">
-                            <label class="habits-label" for="low">Low</label>
-                            <input class="habits-input" type="radio" id="medium" name="priority" value="Medium">
-                            <label class="habits-label" for="medium">Medium</label>
-                            <input class="habits-input" type="radio" id="high" name="priority" value="High">
-                            <label class="habits-label" for="high">High</label>
+                            <label class="habits-label">Priority:</label>
+                            <input class="habits-input" type="radio" id="priority-low" name="priority" value="Low">
+                            <label class="habits-label" for="priority">Low</label>
+                            <input class="habits-input" type="radio" id="priority-medium" name="priority" value="Medium">
+                            <label class="habits-label" for="priority">Medium</label>
+                            <input class="habits-input" type="radio" id="priority-high" name="priority" value="High">
+                            <label class="habits-label" for="priority">High</label>
                         </div>
-                        <button class="habit-btn">Add Habit</button>
-        
+                        <button class="habit-btn" type="submit">Add Habit</button>
                     </fieldset>
                 </form>
             </section>
