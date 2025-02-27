@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script/script.js"></script>
     <title>Document</title>
 </head>
 <body>    
@@ -18,7 +17,7 @@
         <div class="todo-list-container">
             <div class="todos-button-container">
                 <div class="todo-sorting-button">
-                   <button type="menu" name="sorting" id="sorting">Sorting</button>
+                   <button type="button" name="sorting" id="sorting">Sorting</button>
                    <div class="todo-sorting-content">
                         <label for="status-filter">Status:</label>
                         <select id="status-filter">
@@ -27,15 +26,15 @@
                             <option value="pending">Not Done</option>
                         </select>
                         <label for="start">Time estimate:</label>
-                        <input type="number" id="todo-sorting-deadline" name="deadline" required>
+                        <input type="number" id="todo-sorting-time-estimate" name="deadline">
         
                         <label for="deadline">End Date and Time:</label>
-                        <input type="datetime-local" id="todo-sorting-deadline" name="deadline" required>
+                        <input type="datetime-local" id="todo-sorting-deadline" name="deadline">
                         <button type="submit" name="sortering-button" id="sortering-button">Search</button>
                    </div>
                 </div>
                 <div class="todo-filter-button">
-                    <button type="menu" name="filter" id="filter">Filter</button> 
+                    <button type="button" name="filter" id="filter">Filter</button> 
                     <div class="todo-dropdown-content">
                         <!-- Status Filter -->
                         <label for="status-filter">Status:</label>
@@ -62,40 +61,47 @@
 
         <div class="todo-input-container">
             <!-- <h2>Ärendeformulär</h2> -->
+            
             <form class="todo-form">
-                <h2>New Todos & Activities</h2>
-                <div class="todo-title-container">
-                    <label for="todo-title">Titel:</label>
-                    <input type="text" id="todo-title" name="todo-title" required>
-                </div>
-                <label for="category">Category:</label>
-                <select id="category" name="category">
-                    <option value="hälsa">Health</option>
-                    <option value="hushåll">Household</option>
-                    <option value="jobbrelaterat">Job-related</option>
-                    <option value="nöje">Pleasure</option>
-                </select>  <br>
+                <fieldset class="todo-fieldset">
+                    <legend class="todo-legend">New Todos & Activities</legend>
 
-                <label for="start">Time estimate:</label>
-                <input type="number" id="deadline" name="deadline" required>
+                    <div class="todo-title-container">
+                        <label for="todo-title">Titel:</label>
+                        <input type="text" id="todo-title" name="todo-title" required>
+                    </div>
+                    <label for="category">Category:</label>
+                    <select id="todo-category" name="category">
+                        <option value=" empty">   </option>
+                        <option value="hälsa">Health</option>
+                        <option value="hushåll">Household</option>
+                        <option value="jobbrelaterat">Job-related</option>
+                        <option value="nöje">Pleasure</option>
+                    </select>  <br>
 
-                <label for="deadline">End Date and Time:</label>
-                <input type="datetime-local" id="deadline" name="deadline" required>
+                    <label for="start">Time estimate (Hours):</label>
+                    <input type="number" id="todo-time-estimate" name="time-estimate" required>
 
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" rows="4" required></textarea>
-                <div class="todo-status-container">
-                    <label for="status">Done:</label>
-                    <input type="checkbox" id="status" name="status">
+                    <label for="deadline">End Date and Time:</label>
+                    <input type="datetime-local" id="todo-deadline" name="deadline" required>
 
-                    <label for="status">Not Done:</label>
-                    <input type="checkbox" id="status" name="status">
-                </div>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                    <fieldset class="todo-status-container">
+                        <legend >Status</legend>
+                        <label for="status">Done:</label>
+                        <input type="radio" id="todo-done-status" name="status" required value="Done">
 
-                <button type="submit" id="subId">Add Todos and Activities</button>
+                        <label for="status">Not Done:</label>
+                        <input type="radio" id="todo-notDone-status" name="status"required value="Not Done">
+                    </fieldset>
+
+                    <button type="submit" id="subId">Add Todos and Activities</button>
+                </fieldset>
             </form>
         </div>
 
-    </main> 
+    </main>
+    <script defer src="script/script.js"></script> 
 </body>
 </html>

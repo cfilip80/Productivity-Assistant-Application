@@ -220,29 +220,44 @@ button:hover {
     height:1000px;
     /* border:1px solid black; */
 }
-.todo-form{
+/* .todo-form, .todo-fieldset { */
+.todo-fieldset {
+    background-color: #F5F5F5;
     display: grid;
     width: 80%;
     height: auto;
-    background: white;
-    padding: 40px 100px 100px 100px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 0px 50px 50px 50px;
     margin: auto;
     text-align: center;
-    gap: 5px;
+    border: .5px solid black;
+    border-radius: 10px;
+    gap: 10px;
+}
+/* .todo-fieldset{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: -100px 100px 100px 100px;
+    gap: 10px;
+     
+} */
+.todo-legend{
+    color: green;
+    font-size: 40px;
+    text-align: left;
 }
 #subId{
     height: 40px;
     background-color: #28a745;
     border-radius: 5px;
+    margin-top: 10px;
 }
 #sök--filtrering, #sortering-button{
     height: 30px;
     background-color: #28a745;
     border-radius: 5px;
 }
-#category, #deadline {
+#category, #todo-deadline, #todo-time-estimate{
+    /**/
     height: 35px;
     border-radius: 5px;
 }
@@ -257,6 +272,9 @@ button:hover {
     display: flex;
     align-items: center;
     gap: 100px;
+    border-radius: 5px;
+    border: 0.5px solid black;
+    text-align: left;
 }
 
 /* .todo-sorting-button {
@@ -294,4 +312,11 @@ button:hover {
     gap: 10px;
     border-radius: 5px;
     justify-content: center;
+}
+#description{
+    border-radius: 5px;
+    border: 0.5px solid black;
+}
+#todo-category{
+    border: 0.5px solid black;
 }
