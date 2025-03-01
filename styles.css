@@ -187,9 +187,9 @@ button:hover {
 
   .todo-list-container{
     display: inline-block;
+    justify-items: center;
     width:50%;
     height:1000px;
-    
 }
 
 .todos-button-container {
@@ -218,9 +218,8 @@ button:hover {
     align-items: center;
     width:50%;
     height:1000px;
-    /* border:1px solid black; */
 }
-/* .todo-form, .todo-fieldset { */
+
 .todo-fieldset {
     background-color: #F5F5F5;
     display: grid;
@@ -319,4 +318,17 @@ button:hover {
 }
 #todo-category{
     border: 0.5px solid black;
+}
+.todo-history-list-container{
+    display: inline-block;
+    justify-items: center;
+    width: 600px;
+    height: 900px;
+    padding: 10px; 
+}
+.todo-and-activities-list{
+    width: 400px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
 }
