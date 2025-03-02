@@ -319,6 +319,7 @@ button:hover {
 #todo-category{
     border: 0.5px solid black;
 }
+/* tyling to data that koms from localstorage */
 .todo-history-list-container{
     display: inline-block;
     justify-items: center;
@@ -327,8 +328,36 @@ button:hover {
     padding: 10px; 
 }
 .todo-and-activities-list{
+    display: flex;
     width: 400px;
     height: 200px;
     border: 1px solid black;
     border-radius: 10px;
+}
+.todo-and-activities-list-hide{
+    display: none;
+}
+#todoEdit, #todoDelet, #todoCompleted{
+    height: 25px;
+    width: 80px;
+    border-radius: 5px;
+}
+.button-histori-container{
+    display: grid;
+    width: 80px;
+    height: 25px;
+    gap: 10px;
+    justify-items: right;
+    margin: 40px 5px 0px 0px;
+}
+.todo-history-data{
+    justify-content: left;
+    width: 309px;
+    height: 200px;
+    padding: 0px;
+    margin: 0px;
+    gap: 0px;
+}
+p{
+    margin: 2px;
 }
