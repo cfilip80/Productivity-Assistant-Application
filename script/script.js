@@ -5,34 +5,34 @@ const habitsRepetitions = document.getElementById("habits-repetitions");
 // Call renderHabits when the page loads to display the list
 document.addEventListener('DOMContentLoaded', renderHabits);
 
-const getStoredDataOrCreateEmptyArray = () => {
-    // Retrieve existing data from localStorage
-    let storedData = localStorage.getItem("formInputs");
+// const getStoredDataOrCreateEmptyArray = () => {
+//     // Retrieve existing data from localStorage
+//     let storedData = localStorage.getItem("formInputs");
 
-    // Parse it to an array or initialize an empty array if there's no data
-    let habitInputs = storedData ? JSON.parse(storedData) : [];
-}
+//     // Parse it to an array or initialize an empty array if there's no data
+//     let habitInputs = storedData ? JSON.parse(storedData) : [];
+// }
 
 
-function addFormInputToLocalStorage(newObject) {
-    // Retrieve existing data from localStorage
-    let storedData = localStorage.getItem("formInputs");
+// function addFormInputToLocalStorage(newObject) {
+//     // Retrieve existing data from localStorage
+//     let storedData = localStorage.getItem("formInputs");
 
-    // Parse it to an array or initialize an empty array if there's no data
-    let habitInputs = storedData ? JSON.parse(storedData) : [];
+//     // Parse it to an array or initialize an empty array if there's no data
+//     let habitInputs = storedData ? JSON.parse(storedData) : [];
 
-    // Assign a unique key (ID) to the new object
-    newObject.id = crypto.randomUUID();
+//     // Assign a unique key (ID) to the new object
+//     newObject.id = crypto.randomUUID();
 
-    newObject.list = "Habits";
+//     newObject.list = "Habits";
 
-    // Add the new object to the array
-    habitInputs.push(newObject);
+//     // Add the new object to the array
+//     habitInputs.push(newObject);
 
-    // Save updated array back to localStorage
-    localStorage.setItem("formInputs", JSON.stringify(habitInputs));
-    console.log("-------Data har skickats till LocalStorage-------")
-}
+//     // Save updated array back to localStorage
+//     localStorage.setItem("formInputs", JSON.stringify(habitInputs));
+//     console.log("-------Data har skickats till LocalStorage-------")
+// }
 
 // Radiobuttons
 let habitsRadioButtonIsChecked = () => {
@@ -73,9 +73,9 @@ function renderHabits() {
 
         habitDiv.innerHTML = `
             <div class="habits-text-container">
-                <p>Title: ${habit.title}</p>
-                <p>Repetitions: ${habit.repetitions}</p>
-                <p>Priority: ${habit.priority}</p>
+                <p><b>Title:</b> ${habit.title}</p>
+                <p><b>Repetitions:</b> ${habit.repetitions}</p>
+                <p><b>Priority:</b> ${habit.priority}</p>
             </div>
             <div class="habits-button-container">
                 <button class="habit-list-button" onclick="editHabit('${habit.id}')">Edit</button>
