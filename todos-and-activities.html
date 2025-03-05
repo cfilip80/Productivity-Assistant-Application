@@ -19,59 +19,55 @@
                 <div class="todo-sorting-button">
                    <button type="button" name="sorting" id="sorting">Sorting</button>
                    <div class="todo-sorting-content">
-                        <label for="status-filter">Status:</label>
-                        <select id="status-filter">
-                            <option value="all">Alla</option>
-                            <option value="completed">Done</option>
-                            <option value="pending">Not Done</option>
+                        <label for="sorting-status-filter">Status:</label>
+                        <select id="sorting-status-filter">
+                            <option value="all">All</option>
+                            <option value="Status-asc">Completed (Ascending)</option>
+                            <option value="Status-desc">Incomplete (Descending)</option>
                         </select>
                         <label for="start">Time estimate:</label>
-                        <input type="number" id="todo-sorting-time-estimate" name="deadline">
+                        <select id="time-estimate-filter">
+                            <option value="all">Alla</option>
+                            <option value="TimeEstimate-asc">Time Estimate(Ascending)</option>
+                            <option value="TimeEstimate-desc">Time Estimate(Descending)</option>
+                        </select>
         
                         <label for="deadline">End Date and Time:</label>
-                        <input type="datetime-local" id="todo-sorting-deadline" name="deadline">
-                        <button type="submit" name="sortering-button" id="sortering-button">Search</button>
+                        <select id="deadline-filter">
+                            <option value="all">Alla</option>
+                            <option value="Deadline-asc">Deadline (Ascending)</option>
+                            <option value="Deadline-desc">Deadline (Descending)</option>
+                        </select>
+
+                        <!-- <button type="submit" name="sortering-button" id="sortering-button">Search</button> -->
                    </div>
                 </div>
                 <div class="todo-filter-button">
                     <button type="button" name="filter" id="filter">Filter</button> 
                     <div class="todo-dropdown-content">
                         <!-- Status Filter -->
-                        <label for="status-filter">Status:</label>
-                        <select id="status-filter">
-                            <option value="all">Alla</option>
-                            <option value="completed">Done</option>
-                            <option value="pending">Not Done</option>
+                        <label for="filter-status-filter">Status:</label>
+                        <select id="filter-status-filter">
+                            <option value="all">All</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Incomplete">Incomplete</option>
                         </select>
             
                         <!-- Kategori Filter -->
                         <label for="category-filter">Category:</label>
                         <select id="category-filter">
+                            <option value="all">All</option>
                             <option value="Health">Health</option>
                             <option value="Household">Household</option>
                             <option value="Job-related">Job-related</option>
                             <option value="Pleasure">Pleasure</option>
-                        </select>
-                        <button type="submit" name="sök-filtrering" id="sök--filtrering">Search</button>
+                        </select> 
+                        <!-- <button type="button" name="sök-filtrering" id="sök--filtrering">Search</button> -->
                     </div>
                 </div>
             </div>
             <div class="todo-history-list-container">
-                <!-- <div class="todo-and-activities-list">
-                    <div class="todo-history-data">
-                        <p>TITLE</p>
-                        <p>KATAGORI</p>
-                        <p>TIMEESTIMATE</p>
-                        <p>DEDLINE</p>
-                        <p>DESKRIPTION</p>
-                        <P>SATUS</P>
-                    </div>
-                    <div class="button-histori-container">
-                        <button type="button" name="Edit" id="todoEdit">Edit</button>
-                        <button type="button" name="Delet" id="todoDelet">Delet</button>
-                        <button type="button" name="ompleted" id="todoCompleted">completed</button>
-                    </div>
-                </div> -->
+                
             </div>
            
         </div>
@@ -106,14 +102,17 @@
                     <textarea id="description" name="description" rows="4" required></textarea>
                     <fieldset class="todo-status-container">
                         <legend >Status</legend>
-                        <label for="status">Done:</label>
-                        <input type="radio" id="todo-done-status" name="status" required value="Done">
+                        <label for="status">Completed:</label>
+                        <input type="radio" id="todo-done-status" name="status" required value="Completed">
 
-                        <label for="status">Not Done:</label>
-                        <input type="radio" id="todo-notDone-status" name="status"required value="Not Done">
+                        <label for="status">Incomplete:</label>
+                        <input type="radio" id="todo-notDone-status" name="status"required value="Incomplete">
                     </fieldset>
-
-                    <button type="submit" id="subId">Add Todos and Activities</button>
+                    <div class="todo-save-submit-button-container">
+                        <button type="submit" id="subId">Add Todos and Activities</button>
+                        <button type="button" id="saveChanges">Save changes</button>
+                        <button type="button" id="clearButton" >Clear</button>
+                    </div>
                 </fieldset>
             </form>
         </div>

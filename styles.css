@@ -245,6 +245,7 @@ button:hover {
     text-align: left;
 }
 #subId{
+    display: block;
     height: 40px;
     background-color: #28a745;
     border-radius: 5px;
@@ -327,17 +328,26 @@ button:hover {
     height: 900px;
     padding: 10px; 
 }
+.todo-save-submit-button-container{
+    display: grid;
+}
 .todo-and-activities-list{
+    background: #F5F5F5;
     display: flex;
     width: 400px;
-    height: 200px;
+    height: auto;
     border: 1px solid black;
     border-radius: 10px;
 }
 .todo-and-activities-list-hide{
-    display: none;
+    background: red;
+    display: flex;
+    width: 400px;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 10px;
 }
-#todoEdit, #todoDelet, #todoCompleted{
+#todoEdit, #todoDelete{
     height: 25px;
     width: 80px;
     border-radius: 5px;
@@ -345,19 +355,26 @@ button:hover {
 .button-histori-container{
     display: grid;
     width: 80px;
-    height: 25px;
+    height: auto;
     gap: 10px;
     justify-items: right;
-    margin: 40px 5px 0px 0px;
+    margin: 20px 5px 20px 0px;
 }
 .todo-history-data{
     justify-content: left;
     width: 309px;
-    height: 200px;
+    height: auto;
     padding: 0px;
     margin: 0px;
     gap: 0px;
 }
 p{
     margin: 2px;
+}
+#saveChanges, #clearButton{
+    display: none;
+    height: 30px;
+    background-color: #28a745;
+    border-radius: 5px;
+    margin-top: 3px; 
 }
