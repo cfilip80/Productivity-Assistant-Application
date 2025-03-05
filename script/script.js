@@ -11,7 +11,6 @@ const submitButton = document.getElementById("subId");
 const todoSaveButtonContainer = document.querySelector("todo-save-submit-button-container");
 const saveChangesButton = document.getElementById("saveChanges");
 const clearButton = document.getElementById("clearButton");
-const serchFilterButton = document.getElementById("sök--filtrering");
 
 document.addEventListener('DOMContentLoaded', displayDataFromLocalStorage);
 
