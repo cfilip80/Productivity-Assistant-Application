@@ -46,6 +46,15 @@ main {
     margin-top: 20px;
 }
 
+.clear-btn {
+    background-color:rgb(5, 5, 221);
+    border:1px solid rgb(2, 2, 83);
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 20px;
+}
+
 button:hover {
     cursor: pointer;
 }
@@ -126,9 +135,19 @@ button:hover {
     /* border: 1px solid black; */
 }
 
-.habit-list-button {
-    background-color:#28a745;
-    border:1px solid rgb(1, 77, 1);
+.habit-list-button-edit {
+    background-color:rgb(5, 5, 221);
+    border:1px solid rgb(2, 2, 83);
+    color: white;
+    border-radius: 5px;
+    width: 60px;
+    height: 30px;
+    margin: 5px;
+}
+
+.habit-list-button-remove {
+    background-color:rgb(206, 55, 55);
+    border:1px solid rgb(196, 3, 3);
     color: white;
     border-radius: 5px;
     width: 60px;

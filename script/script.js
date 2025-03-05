@@ -38,6 +38,8 @@ document.getElementById("filter-high").addEventListener("click", () => {
     renderHabits();
 });
 
+document.querySelector('.clear-btn').addEventListener('click', clearForm);
+
 // Radiobuttons checker
 let habitsRadioButtonIsChecked = () => {
     let low = document.getElementById("priority-low");
@@ -49,6 +51,13 @@ let habitsRadioButtonIsChecked = () => {
         return medium.value;
     else if(high.checked)
         return high.value;
+}
+
+function clearForm() {
+    document.getElementById("new-habit").reset();
+    const submitButton = document.querySelector(".habit-btn");
+    submitButton.removeAttribute('data-id');
+    submitButton.textContent = "Add Habit";
 }
 
 function renderHabits() {
@@ -83,8 +92,8 @@ function renderHabits() {
                 <p><b>Priority:</b> ${habit.priority}</p>
             </div>
             <div class="habits-button-container">
-                <button class="habit-list-button" onclick="editHabit('${habit.id}')">Edit</button>
-                <button class="habit-list-button" onclick="removeHabit('${habit.id}')">Remove</button>
+                <button class="habit-list-button-edit" onclick="editHabit('${habit.id}')">Edit</button>
+                <button class="habit-list-button-remove" onclick="removeHabit('${habit.id}')">Remove</button>
             </div>
         `;
         habitsListContainer.appendChild(habitDiv);
