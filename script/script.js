@@ -1,4 +1,3 @@
-// let habitsList = [];
 const habitsTitle = document.getElementById("habits-title");
 const habitsRepetitions = document.getElementById("habits-repetitions");
 
@@ -10,6 +9,34 @@ const getHabitsDataFromLocalStorage = () => {
     let habits = storedData ? JSON.parse(storedData) : [];
     return habits
 }
+
+let sortOptions = "priority";  // Default sort by priority
+let filterOptions = "";  // Default filter is empty (no filter)
+
+document.getElementById("sort-priority").addEventListener("click", () => {
+    sortOptions = "priority";
+    renderHabits();
+});
+
+document.getElementById("sort-repetitions").addEventListener("click", () => {
+    sortOptions = "repetitions";
+    renderHabits();
+});
+
+document.getElementById("filter-low").addEventListener("click", () => {
+    filterOptions = "Low";
+    renderHabits();
+});
+
+document.getElementById("filter-medium").addEventListener("click", () => {
+    filterOptions = "Medium";
+    renderHabits();
+});
+
+document.getElementById("filter-high").addEventListener("click", () => {
+    filterOptions = "High";
+    renderHabits();
+});
 
 // Radiobuttons checker
 let habitsRadioButtonIsChecked = () => {
@@ -24,11 +51,27 @@ let habitsRadioButtonIsChecked = () => {
         return high.value;
 }
 
-// Render habits from localStorage
 function renderHabits() {
     let habits = getHabitsDataFromLocalStorage();
+
+    // Apply filter if there's a selected priority
+    if (filterOptions) {
+        habits = habits.filter(habit => habit.priority === filterOptions);
+    }
+
+    // Apply sorting based on selected criteria
+    if (sortOptions === "priority") {
+        habits.sort((a, b) => {
+            const priorities = ["Low", "Medium", "High"];
+            return priorities.indexOf(a.priority) - priorities.indexOf(b.priority);
+        });
+    } else if (sortOptions === "repetitions") {
+        habits.sort((a, b) => a.repetitions - b.repetitions);
+    }
+
     const habitsListContainer = document.querySelector(".habits-list-wrapper");
-    habitsListContainer.innerHTML = "<h1>List of Habits</h1>";
+    habitsListContainer.innerHTML = "<h1>List of Habits</h1>";  // Reset the container
+
     habits.forEach(habit => {
         const habitDiv = document.createElement('div');
         habitDiv.classList.add('habit');
