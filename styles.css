@@ -320,7 +320,7 @@ button:hover {
 #todo-category{
     border: 0.5px solid black;
 }
-/* tyling to data that koms from localstorage */
+/* styling to data that koms from localstorage */
 .todo-history-list-container{
     display: inline-block;
     justify-items: center;
