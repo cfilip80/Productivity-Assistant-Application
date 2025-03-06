@@ -10,35 +10,36 @@ const getHabitsDataFromLocalStorage = () => {
     return habits
 }
 
-let sortOptions = "priority";  // Default sort by priority
-let filterOptions = "";  // Default filter is empty (no filter)
+let habitsSortOptions = "priority";
+let habitsFilterOptions = "";
 
-document.getElementById("sort-priority").addEventListener("click", () => {
-    sortOptions = "priority";
-    renderHabits();
-});
-
-document.getElementById("sort-repetitions").addEventListener("click", () => {
-    sortOptions = "repetitions";
+document.getElementById("sort-options").addEventListener("change", () => {
     renderHabits();
 });
 
 document.getElementById("filter-low").addEventListener("click", () => {
-    filterOptions = "Low";
+    habitsFilterOptions = "Low";
     renderHabits();
 });
 
 document.getElementById("filter-medium").addEventListener("click", () => {
-    filterOptions = "Medium";
+    habitsFilterOptions = "Medium";
     renderHabits();
 });
 
 document.getElementById("filter-high").addEventListener("click", () => {
-    filterOptions = "High";
+    habitsFilterOptions = "High";
     renderHabits();
 });
 
-document.querySelector('.clear-btn').addEventListener('click', clearForm);
+document.querySelector('.clear-btn').addEventListener('click', habitsClearForm);
+
+// Reset sort and filter
+document.querySelector('.reset-btn').addEventListener('click', () => {
+    habitsSortOptions = "priority";
+    habitsFilterOptions = "";       
+    renderHabits();                 
+});
 
 // Radiobuttons checker
 let habitsRadioButtonIsChecked = () => {
@@ -53,7 +54,7 @@ let habitsRadioButtonIsChecked = () => {
         return high.value;
 }
 
-function clearForm() {
+function habitsClearForm() {
     document.getElementById("new-habit").reset();
     const submitButton = document.querySelector(".habit-btn");
     submitButton.removeAttribute('data-id');
@@ -63,23 +64,30 @@ function clearForm() {
 function renderHabits() {
     let habits = getHabitsDataFromLocalStorage();
 
-    // Apply filter if there's a selected priority
-    if (filterOptions) {
-        habits = habits.filter(habit => habit.priority === filterOptions);
+    if (habitsFilterOptions) {
+        habits = habits.filter(habit => habit.priority === habitsFilterOptions);
     }
 
-    // Apply sorting based on selected criteria
-    if (sortOptions === "priority") {
+    const selectedSortOption = document.getElementById("sort-options").value;
+
+    if (selectedSortOption === "priority-asc") {
         habits.sort((a, b) => {
             const priorities = ["Low", "Medium", "High"];
             return priorities.indexOf(a.priority) - priorities.indexOf(b.priority);
         });
-    } else if (sortOptions === "repetitions") {
+    } else if (selectedSortOption === "priority-desc") {
+        habits.sort((a, b) => {
+            const priorities = ["Low", "Medium", "High"];
+            return priorities.indexOf(b.priority) - priorities.indexOf(a.priority);
+        });
+    } else if (selectedSortOption === "repetitions-asc") {
         habits.sort((a, b) => a.repetitions - b.repetitions);
+    } else if (selectedSortOption === "repetitions-desc") {
+        habits.sort((a, b) => b.repetitions - a.repetitions);
     }
 
     const habitsListContainer = document.querySelector(".habits-list-wrapper");
-    habitsListContainer.innerHTML = "<h1>List of Habits</h1>";  // Reset the container
+    habitsListContainer.innerHTML = '<h2 class="h2-list-title">List of Habits</h2>';
 
     habits.forEach(habit => {
         const habitDiv = document.createElement('div');
@@ -93,14 +101,14 @@ function renderHabits() {
             </div>
             <div class="habits-button-container">
                 <button class="habit-list-button-edit" onclick="editHabit('${habit.id}')">Edit</button>
-                <button class="habit-list-button-remove" onclick="removeHabit('${habit.id}')">Remove</button>
+                <button class="habit-list-button-remove" onclick="removeHabit('${habit.id}')">Delete</button>
             </div>
         `;
         habitsListContainer.appendChild(habitDiv);
     });
 }
 
-// Remove habit
+// Remove habit by id
 function removeHabit(habitId) {
     let habits = getHabitsDataFromLocalStorage();
     const updatedHabits = habits.filter(habit => habit.id !== habitId);
@@ -128,7 +136,7 @@ function editHabit(habitId) {
     submitButton.setAttribute('data-id', habit.id);
 }
 
-// Eventlistener function that creates a new habit OR updates an existing habit after editing
+// Eventlistener function that creates a new habit OR updates an existing habit after editing in the form
 document.querySelector('#new-habit').addEventListener('submit', function (e) {
     e.preventDefault();
 

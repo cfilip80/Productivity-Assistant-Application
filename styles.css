@@ -1,4 +1,4 @@
- *, *::before, *::after {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
@@ -7,20 +7,42 @@ main {
     flex-direction: row;
 }
 
+.h2-list-title {
+    text-align: center;
+}
+
 .nav {
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    /* gap: 20px; */
     width:100%;
     height:100px;
     background-color:#263F5C;
     border:1px solid black;
 }
 
+.nav-links {
+    text-align: center;
+    height: 30px;
+    width: 150px;
+    padding: 5px;
+    border: 1px solid white;
+    margin-right: 30px;
+}
+
+.nav-links a {
+    color: white;
+    font-size: 15px;
+    text-decoration: none;
+}
+
 .habits-list-container{
     display: flex;
-    justify-content:flex-end;
+    flex-direction: column;
     align-items: center;
     width:50%;
     height:auto;
-    /* border:1px solid black; */
 }
 
 .habits-list-container h1 {
@@ -34,25 +56,34 @@ main {
     align-items: center;
     width:100%;
     height:50px;
-    border: 1px solid black;
 }
 
 .habit-btn {
-    background-color:#28a745;
-    border:1px solid rgb(1, 77, 1);
+    background-color: #28a745;
+    border: 1px solid #218838;
     color: white;
     border-radius: 5px;
     padding: 5px;
     margin-top: 20px;
 }
 
+.habit-btn:hover {
+    cursor: pointer;
+    background-color: #218838;
+}
+
 .clear-btn {
-    background-color:rgb(5, 5, 221);
-    border:1px solid rgb(2, 2, 83);
+    background-color: #dc3545;
+    border: 1px solid #c82333;
     color: white;
     border-radius: 5px;
     padding: 5px;
     margin-top: 20px;
+}
+
+.clear-btn:hover {
+    cursor: pointer;
+    background-color: #c82333;
 }
 
 button:hover {
@@ -71,7 +102,6 @@ button:hover {
     align-items:flex-start;
     width:50%;
     height:auto;
-    border:1px solid black;
 }
 
 .habits-fieldset {
@@ -136,8 +166,8 @@ button:hover {
 }
 
 .habit-list-button-edit {
-    background-color:rgb(5, 5, 221);
-    border:1px solid rgb(2, 2, 83);
+    background-color: #007bff;
+    border: 1px solid #0056b3;
     color: white;
     border-radius: 5px;
     width: 60px;
@@ -145,216 +175,273 @@ button:hover {
     margin: 5px;
 }
 
+.habit-list-button-edit:hover {
+    cursor: pointer;
+    background-color: #0056b3;
+}
+
 .habit-list-button-remove {
-    background-color:rgb(206, 55, 55);
-    border:1px solid rgb(196, 3, 3);
+    background-color: #dc3545;
+    border: 1px solid #c82333;
     color: white;
     border-radius: 5px;
     width: 60px;
     height: 30px;
-    width: 150px;
-    padding: 5px;
-    border: 1px solid white;
-    margin-right: 30px;
+    margin: 5px;
 }
 
-.nav-links a {
+.habit-list-button-remove:hover {
+    cursor: pointer;
+    background-color:#c82333;
+}
+
+/* Dropdown Button */
+.habits-dropbtn {
+    background-color: #28a745;
     color: white;
-    font-size: 15px;
-    text-decoration: none;
-}
-
-/* Todos and activities css */
-.todo-list-container{
-  display: inline-block;
-  justify-items: center;
-  width:50%;
-  height:1000px;
-}
-
-.todos-button-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-    height:50px;
-}
-
-#filter, #sorting {
-    background-color: #28a745;
-    width: 100px;
-    height:40px;
-    text-align: center;
-    font-size: 20px;
-    border-radius: 5px;
-    padding-top: 5px;
-    margin: 0 20px;
-}
-
-.todo-input-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:50%;
-    height:1000px;
-}
-
-.todo-fieldset {
-    background-color: #F5F5F5;
-    display: grid;
-    width: 80%;
-    height: auto;
-    padding: 0px 50px 50px 50px;
-    margin: auto;
-    text-align: center;
-    border: .5px solid black;
-    border-radius: 10px;
-    gap: 10px;
-}
-/* .todo-fieldset{
+    padding: 8px;
+    font-size: 14px;
     border: 1px solid black;
-    border-radius: 10px;
-    padding: -100px 100px 100px 100px;
-    gap: 10px;
-     
-} */
-.todo-legend{
-    color: green;
-    font-size: 40px;
-    text-align: left;
-}
-#subId{
-    display: block;
+    margin: 10px;
+    width: 80px;
     height: 40px;
-    background-color: #28a745;
     border-radius: 5px;
-    margin-top: 10px;
-}
-#sök--filtrering, #sortering-button{
-    height: 30px;
-    background-color: #28a745;
-    border-radius: 5px;
-}
-#category, #todo-deadline, #todo-time-estimate{
-    /**/
-    height: 35px;
-    border-radius: 5px;
-}
-.todo-title-container{
-    display: grid;
-}
-#todo-title{
-    height: 30px;
-    border-radius: 5px;
-}
-.todo-status-container {
-    display: flex;
-    align-items: center;
-    gap: 100px;
-    border-radius: 5px;
-    border: 0.5px solid black;
-    text-align: left;
-}
-
-/* .todo-sorting-button {
-    display: flex;
-    align-items: center;
-    gap: 100px;
-} */
-.todo-dropdown-content {
-    display: none;
-    position:absolute;
-    background: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 14px; 
-    z-index: 1;
-}
-.todo-filter-button:hover .todo-dropdown-content{
-    display: grid;
-    padding: 12px 16px;
-    width: 150px;
-    gap: 10px;
-    border-radius: 5px;
-}
-.todo-sorting-content{
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .habits-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .habits-dropdown-content {
     display: none;
     position: absolute;
-    background: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 14px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-}
-.todo-sorting-button:hover .todo-sorting-content{
+  }
+
+  .habits-label-dropdown {
     display: grid;
+    padding: 3px;
+    text-align: center;
+    text-decoration: underline;
+  }
+  
+  /* Links inside the dropdown */
+  .habits-dropdown-content a {
+    color: black;
     padding: 12px 16px;
-    width: 200px;
-    gap: 10px;
-    border-radius: 5px;
-    justify-content: center;
-}
-#description{
-    border-radius: 5px;
-    border: 0.5px solid black;
-}
-#todo-category{
-    border: 0.5px solid black;
-}
-/* styling to data that koms from localstorage */
-.todo-history-list-container{
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .habits-dropdown-content a:hover {background-color: #ddd;}
+  
+  /* Show the dropdown menu on hover */
+  .habits-dropdown:hover .habits-dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .habits-dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+
+
+  /* Todos and activities css */
+.todo-list-container{
     display: inline-block;
     justify-items: center;
-    width: 600px;
-    height: 900px;
-    padding: 10px; 
-}
-.todo-save-submit-button-container{
-    display: grid;
-}
-.todo-and-activities-list{
-    background: #F5F5F5;
-    display: flex;
-    width: 400px;
-    height: auto;
-    border: 1px solid black;
-    border-radius: 10px;
-}
-.todo-and-activities-list-hide{
-    background: red;
-    display: flex;
-    width: 400px;
-    height: auto;
-    border: 1px solid black;
-    border-radius: 10px;
-}
-#todoEdit, #todoDelete{
-    height: 25px;
-    width: 80px;
-    border-radius: 5px;
-}
-.button-histori-container{
-    display: grid;
-    width: 80px;
-    height: auto;
-    gap: 10px;
-    justify-items: right;
-    margin: 20px 5px 20px 0px;
-}
-.todo-history-data{
-    justify-content: left;
-    width: 309px;
-    height: auto;
-    padding: 0px;
-    margin: 0px;
-    gap: 0px;
-}
-p{
-    margin: 2px;
-}
-#saveChanges, #clearButton{
-    display: none;
-    height: 30px;
-    background-color: #28a745;
-    border-radius: 5px;
-    margin-top: 3px; 
-}
+    width:50%;
+    height:1000px;
+  }
+  
+  .todos-button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width:100%;
+      height:50px;
+  }
+  
+  #filter, #sorting {
+      background-color: #28a745;
+      width: 100px;
+      height:40px;
+      text-align: center;
+      font-size: 20px;
+      border-radius: 5px;
+      padding-top: 5px;
+      margin: 0 20px;
+  }
+  
+  .todo-input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width:50%;
+      height:1000px;
+  }
+  
+  .todo-fieldset {
+      background-color: #F5F5F5;
+      display: grid;
+      width: 80%;
+      height: auto;
+      padding: 0px 50px 50px 50px;
+      margin: auto;
+      text-align: center;
+      border: .5px solid black;
+      border-radius: 10px;
+      gap: 10px;
+  }
+  /* .todo-fieldset{
+      border: 1px solid black;
+      border-radius: 10px;
+      padding: -100px 100px 100px 100px;
+      gap: 10px;
+       
+  } */
+  .todo-legend{
+      color: green;
+      font-size: 40px;
+      text-align: left;
+  }
+  #subId{
+      display: block;
+      height: 40px;
+      background-color: #28a745;
+      border-radius: 5px;
+      margin-top: 10px;
+  }
+  #sök--filtrering, #sortering-button{
+      height: 30px;
+      background-color: #28a745;
+      border-radius: 5px;
+  }
+  #category, #todo-deadline, #todo-time-estimate{
+      /**/
+      height: 35px;
+      border-radius: 5px;
+  }
+  .todo-title-container{
+      display: grid;
+  }
+  #todo-title{
+      height: 30px;
+      border-radius: 5px;
+  }
+  .todo-status-container {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+      border-radius: 5px;
+      border: 0.5px solid black;
+      text-align: left;
+  }
+  
+  /* .todo-sorting-button {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+  } */
+  .todo-dropdown-content {
+      display: none;
+      position:absolute;
+      background: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 10px 14px; 
+      z-index: 1;
+  }
+  .todo-filter-button:hover .todo-dropdown-content{
+      display: grid;
+      padding: 12px 16px;
+      width: 150px;
+      gap: 10px;
+      border-radius: 5px;
+  }
+  .todo-sorting-content{
+      display: none;
+      position: absolute;
+      background: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 10px 14px;
+      z-index: 1;
+  }
+  .todo-sorting-button:hover .todo-sorting-content{
+      display: grid;
+      padding: 12px 16px;
+      width: 200px;
+      gap: 10px;
+      border-radius: 5px;
+      justify-content: center;
+  }
+  #description{
+      border-radius: 5px;
+      border: 0.5px solid black;
+  }
+  #todo-category{
+      border: 0.5px solid black;
+  }
+  /* styling to data that koms from localstorage */
+  .todo-history-list-container{
+      display: inline-block;
+      justify-items: center;
+      width: 600px;
+      height: 900px;
+      padding: 10px; 
+  }
+  .todo-save-submit-button-container{
+      display: grid;
+  }
+  .todo-and-activities-list{
+      background: #F5F5F5;
+      display: flex;
+      width: 400px;
+      height: auto;
+      border: 1px solid black;
+      border-radius: 10px;
+  }
+  .todo-and-activities-list-hide{
+      background: red;
+      display: flex;
+      width: 400px;
+      height: auto;
+      border: 1px solid black;
+      border-radius: 10px;
+  }
+  #todoEdit, #todoDelete{
+      height: 25px;
+      width: 80px;
+      border-radius: 5px;
+  }
+  .button-histori-container{
+      display: grid;
+      width: 80px;
+      height: auto;
+      gap: 10px;
+      justify-items: right;
+      margin: 20px 5px 20px 0px;
+  }
+  .todo-history-data{
+      justify-content: left;
+      width: 309px;
+      height: auto;
+      padding: 0px;
+      margin: 0px;
+      gap: 0px;
+  }
+  .todo-p{
+      margin: 2px;
+  }
+  #saveChanges, #clearButton{
+      display: none;
+      height: 30px;
+      background-color: #28a745;
+      border-radius: 5px;
+      margin-top: 3px; 
+  }
