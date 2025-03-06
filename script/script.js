@@ -5,14 +5,14 @@ const todoDeadline = document.getElementById("todo-deadline");
 const todoDescription = document.getElementById("description");
 const todoDoneBox = document.getElementById("todo-done-status");
 const todoNotDoneBox = document.getElementById("todo-notDone-status");
-const form = document.querySelector(".todo-form");
+const todoForm = document.querySelector(".todo-form");
 const todoAndActivitiList = document.querySelector("todo-and-activities-list");
-const submitButton = document.getElementById("subId");
+const todoSubmitButton = document.getElementById("subId");
 const todoSaveButtonContainer = document.querySelector("todo-save-submit-button-container");
-const saveChangesButton = document.getElementById("saveChanges");
-const clearButton = document.getElementById("clearButton");
+const todoSaveChangesButton = document.getElementById("saveChanges");
+const todoClearButton = document.getElementById("clearButton");
 
-document.addEventListener('DOMContentLoaded', displayDataFromLocalStorage);
+document.addEventListener('DOMContentLoaded', todoDisplayDataFromLocalStorage);
 
 // Clear form Function
 const todoClearForm = () => {
@@ -26,7 +26,7 @@ const todoClearForm = () => {
     todoNotDoneBox.checked = false;
 }
 
-function getDataFromLocal(){
+function todoGetDataFromLocal(){
     // Retrieve existing data from localStorage
     let storedData = localStorage.getItem("formInputs");
     // Parse it to an array or initialize an empty array if there's no data
@@ -36,9 +36,9 @@ function getDataFromLocal(){
     return formInputs;
 }
  
-function addFormInputToLocalStorage(newObject) {
+function todoAddFormInputToLocalStorage(newObject) {
 
-    let formInputs = getDataFromLocal();
+    let formInputs = todoGetDataFromLocal();
     // Assign a unique key (ID) to the new object
     newObject.id = crypto.randomUUID();
 
@@ -53,8 +53,8 @@ function addFormInputToLocalStorage(newObject) {
     return newObject.id;
 }
 
-function displayDataFromLocalStorage() {
-    let formInputs = getDataFromLocal();
+function todoDisplayDataFromLocalStorage() {
+    let formInputs = todoGetDataFromLocal();
 
     // Get the filter and sorting values from the dropdowns
     const statusFilterValue = document.getElementById('filter-status-filter').value;
@@ -148,21 +148,21 @@ function displayDataFromLocalStorage() {
     document.querySelectorAll(".todoDelete").forEach(button => {
         button.addEventListener("click", function () {
             let itemId = this.getAttribute("data-id");
-            deleteItemFromLocalStorage(itemId);
+            todoDeleteItemFromLocalStorage(itemId);
         });
     });
 
     document.querySelectorAll(".todoEdit").forEach(button => {
         button.addEventListener("click", function () {
             let itemId = this.getAttribute("data-id");
-            editItemInLocalStorage(itemId);
+            todoEditItemInLocalStorage(itemId);
         });
     });
 }
 
 
-function editItemInLocalStorage(id){
-    let formInputs = getDataFromLocal();
+function todoEditItemInLocalStorage(id){
+    let formInputs = todoGetDataFromLocal();
     let foundObject = formInputs.find(item => item.id === id);
 
     if (!foundObject) {
@@ -180,12 +180,12 @@ function editItemInLocalStorage(id){
     todoNotDoneBox.checked = foundObject.status === "Incomplete";
 
     // Visa och gömma knappar
-    submitButton.style.display = "none";
-    saveChangesButton.style.display = "block";
-    clearButton.style.display = "block";
+    todoSubmitButton.style.display = "none";
+    todoSaveChangesButton.style.display = "block";
+    todoClearButton.style.display = "block";
 
     // Spara ändringar när man klickar "Save Changes"
-    saveChangesButton.onclick = function () {
+    todoSaveChangesButton.onclick = function () {
         const updatedTodo = {
             id: id,  // Behåll samma ID
             title: todoTitle.value,
@@ -205,22 +205,18 @@ function editItemInLocalStorage(id){
 
         // Rensa formuläret och visa listan igen
         todoClearForm();
-        displayDataFromLocalStorage();
+        todoDisplayDataFromLocalStorage();
+        todoSubmitButton.style.display = "block";
+        todoSaveChangesButton.style.display = "none";
+        todoClearButton.style.display = "none";
     };
 
-    // Avbryt redigering om man klickar "Cancel"
-    clearButton.onclick = function () {
-        todoClearForm();
-        submitButton.style.display = "block";
-        saveChangesButton.style.display = "none";
-        clearButton.style.display = "none";
-    };
 }
 
 
-function deleteItemFromLocalStorage(id) {
+function todoDeleteItemFromLocalStorage(id) {
 
-    let formInputs = getDataFromLocal();
+    let formInputs = todoGetDataFromLocal();
 
     // Filter out the item with the matching ID
     formInputs = formInputs.filter(item => item.id !== id);
@@ -231,13 +227,13 @@ function deleteItemFromLocalStorage(id) {
     console.log(`Item with ID ${id} deleted successfully!`);
 
     // saveChangesButton.setAttribute('data-id', id);
-    console.log(saveChangesButton);
+    console.log(todoSaveChangesButton);
     
 
     // Refresh the displayed data
-    displayDataFromLocalStorage();
+    todoDisplayDataFromLocalStorage();
 }
-form.addEventListener("submit", function(event) {
+todoForm.addEventListener("submit", function(event) {
     event.preventDefault(); // Förhindra att sidan laddas om
     // svae data in object 
     const todoData = {
@@ -250,16 +246,16 @@ form.addEventListener("submit", function(event) {
     };
     todoClearForm();
 
-    addFormInputToLocalStorage(todoData);
-    displayDataFromLocalStorage();
-    console.log(getDataFromLocal());
-    // console.log(editItemInLocalStorage(), "detta är todos id");
+    todoAddFormInputToLocalStorage(todoData);
+    todoDisplayDataFromLocalStorage();
+    console.log(todoGetDataFromLocal());
+    // console.log(todoEditItemInLocalStorage(), "detta är todos id");
     //console.log(typeof(todoData.statustoe));
      
 });
 
-document.getElementById('filter-status-filter').addEventListener('change', displayDataFromLocalStorage);
-document.getElementById('time-estimate-filter').addEventListener('change', displayDataFromLocalStorage);
-document.getElementById('deadline-filter').addEventListener('change', displayDataFromLocalStorage);
-document.getElementById('category-filter').addEventListener('change', displayDataFromLocalStorage);
-document.getElementById('sorting-status-filter').addEventListener('change', displayDataFromLocalStorage);
+document.getElementById('filter-status-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
+document.getElementById('time-estimate-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
+document.getElementById('deadline-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
+document.getElementById('category-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
+document.getElementById('sorting-status-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
