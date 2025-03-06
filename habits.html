@@ -14,7 +14,62 @@
         <div class="nav-links"><a href="habits.html">Habits</a></div>
     </nav>
     <main>
+        <div class="habits-list-container">
+            <div class="habits-button-container">
+                <div class="habits-dropdown">
+                    <button class="habits-dropbtn">Sort</button>
+                    <div class="habits-dropdown-content">
+                        <a href="#">Priority</a>
+                        <a href="#">Repetitions</a>
+                    </div>
+                </div>
+                <div class="habits-dropdown">
+                    <button class="habits-dropbtn">Filter</button>
+                    <div class="habits-dropdown-content">
+                        <label class="habits-label-dropdown">Filter by priority:</label>
+                        <a href="#">Low</a>
+                        <a href="#">Medium</a>
+                        <a href="#">High</a>
+                    </div>
+                </div>
+            </div>
+            <div class="habit" id="habits-list">
+                <div class="habits-text-container">
+                    <div><h3>Title:</h3><p id="title"></p></div>
+                    <p>Repetitions:</p>
+                    <p>Priority:</p>
+                </div>
+                <div class="habit-button-container">
+                    <button class="habit-list-button">Save</button>
+                    <button class="habit-list-button">Remove</button>
+                </div>
+            </div>
+        </div>
         
+        <div class="habits-input-container">
+            <section>
+                <form id="new-habit">
+                    <fieldset class="habits-fieldset">
+                        <legend class="habits-legend">Create a New Habit</legend>
+                        <label class="habits-label" for="habit">Title:</label>
+                        <input class=".habits-input" type="text" id="habit" name="habit">
+                        <label class="habits-label" for="repetitions">Repetitions:</label>
+                        <input class=".habits-input" type="text" id="repetitions" name="repetitions">
+                        <div class="habits-radio-buttons">
+                            <label class="habits-label" for="priority">Priority:</label>
+                            <input class="habits-input" type="radio" id="low" name="priority" value="Low">
+                            <label class="habits-label" for="low">Low</label>
+                            <input class="habits-input" type="radio" id="medium" name="priority" value="Medium">
+                            <label class="habits-label" for="medium">Medium</label>
+                            <input class="habits-input" type="radio" id="high" name="priority" value="High">
+                            <label class="habits-label" for="high">High</label>
+                        </div>
+                        <button class="habit-btn">Add Habit</button>
+        
+                    </fieldset>
+                </form>
+            </section>
+        </div>
     
     </main>
 </body>

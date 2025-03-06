@@ -1,261 +1,163 @@
-const todoTitle = document.getElementById("todo-title");
-const todoCategory = document.getElementById("todo-category");
-const todoTimeEstimate = document.getElementById("todo-time-estimate");
-const todoDeadline = document.getElementById("todo-deadline");
-const todoDescription = document.getElementById("description");
-const todoDoneBox = document.getElementById("todo-done-status");
-const todoNotDoneBox = document.getElementById("todo-notDone-status");
-const todoForm = document.querySelector(".todo-form");
-const todoAndActivitiList = document.querySelector("todo-and-activities-list");
-const todoSubmitButton = document.getElementById("subId");
-const todoSaveButtonContainer = document.querySelector("todo-save-submit-button-container");
-const todoSaveChangesButton = document.getElementById("saveChanges");
-const todoClearButton = document.getElementById("clearButton");
+const habitsTitle = document.getElementById("habits-title");
+const habitsRepetitions = document.getElementById("habits-repetitions");
 
-document.addEventListener('DOMContentLoaded', todoDisplayDataFromLocalStorage);
+// Display list of habits from local storage when page is loaded
+document.addEventListener('DOMContentLoaded', renderHabits);
 
-// Clear form Function
-const todoClearForm = () => {
-    // set data to empty
-    todoTitle.value = '';
-    todoCategory.value = '';
-    todoTimeEstimate.value = '';
-    todoDeadline.value = '';
-    todoDescription.value = '';
-    todoDoneBox.checked = false;
-    todoNotDoneBox.checked = false;
+const getHabitsDataFromLocalStorage = () => {
+    let storedData = localStorage.getItem("habits");
+    let habits = storedData ? JSON.parse(storedData) : [];
+    return habits
 }
 
-function todoGetDataFromLocal(){
-    // Retrieve existing data from localStorage
-    let storedData = localStorage.getItem("formInputs");
-    // Parse it to an array or initialize an empty array if there's no data
-    let formInputs = storedData ? JSON.parse(storedData) : [];
-    console.log(formInputs);
-    
-    return formInputs;
-}
- 
-function todoAddFormInputToLocalStorage(newObject) {
+let sortOptions = "priority";  // Default sort by priority
+let filterOptions = "";  // Default filter is empty (no filter)
 
-    let formInputs = todoGetDataFromLocal();
-    // Assign a unique key (ID) to the new object
-    newObject.id = crypto.randomUUID();
-
-    // Add the new object to the array
-    formInputs.push(newObject);
-
-    // Save updated array back to localStorage
-    localStorage.setItem("formInputs", JSON.stringify(formInputs));
-    console.log("-------Data har skickats till LocalStorage-------")
-
-    console.log("New object added successfully!");
-    return newObject.id;
-}
-
-function todoDisplayDataFromLocalStorage() {
-    let formInputs = todoGetDataFromLocal();
-
-    // Get the filter and sorting values from the dropdowns
-    const statusFilterValue = document.getElementById('filter-status-filter').value;
-    const categoryFilterValue = document.getElementById('category-filter').value;
-    const timeEstimateFilterValue = document.getElementById('time-estimate-filter').value;
-    const deadlineFilterValue = document.getElementById('deadline-filter').value;
-    const statusSortValue = document.getElementById('sorting-status-filter').value;
-
-    // Filter by status
-    if (statusFilterValue !== "all") {
-        const status = statusFilterValue === 'Completed' ? 'Completed' : 'Incomplete';
-        formInputs = formInputs.filter(item => item.status === status);
-    }
-
-    // Filter by category
-    if (categoryFilterValue !== "all") {
-        formInputs = formInputs.filter(item => item.category === categoryFilterValue);
-    }
-
-    // Apply sorting logic
-    // Sort by status
-    if (statusSortValue !== "all") {
-        formInputs = formInputs.sort((a, b) => {
-            if (statusSortValue === "Status-asc") {
-                // Sort "Completed" first, then "Incomplete"
-                return a.status === "Completed" ? -1 : 1; // Ascending order
-            } else if (statusSortValue === "Status-desc") {
-                // Sort "Incomplete" first, then "Completed"
-                return a.status === "Incomplete" ? -1 : 1; // Descending order
-            }
-            return 0;
-        });
-    }
-
-    // Sort by time estimate
-    if (timeEstimateFilterValue !== "all") {
-        formInputs = formInputs.sort((a, b) => {
-            if (timeEstimateFilterValue === "TimeEstimate-asc") {
-                return a.timeEstimate - b.timeEstimate; // Ascending order
-            } else if (timeEstimateFilterValue === "TimeEstimate-desc") {
-                return b.timeEstimate - a.timeEstimate; // Descending order
-            }
-            return 0;
-        });
-    }
-
-    // Sort by deadline
-    if (deadlineFilterValue !== "all") {
-        formInputs = formInputs.sort((a, b) => {
-            let dateA = new Date(a.deadline);
-            let dateB = new Date(b.deadline);
-            if (deadlineFilterValue === "Deadline-asc") {
-                return dateA - dateB; // Ascending order
-            } else if (deadlineFilterValue === "Deadline-desc") {
-                return dateB - dateA; // Descending order
-            }
-            return 0;
-        });
-    }
-
-    // Get the container where the divs will be appended
-    const todoHistoryListContainer = document.querySelector(".todo-history-list-container");
-
-    // Clear existing content to prevent duplication
-    todoHistoryListContainer.innerHTML = "";
-
-    // Loop through the filtered and sorted data and create divs for each item
-    formInputs.forEach(item => {
-        let dataDiv = document.createElement("div");
-        dataDiv.classList.add("todo-and-activities-list");
-
-        dataDiv.innerHTML = `
-            <div class="todo-history-data">
-                <p><strong>Title:</strong> ${item.title}</p>
-                <p><strong>Category:</strong> ${item.category}</p>
-                <p><strong>Time Estimate:</strong> ${item.timeEstimate}</p>
-                <p><strong>Deadline:</strong> ${item.deadline}</p>
-                <p><strong>Description:</strong> ${item.description}</p>
-                <p><strong>Status:</strong> ${item.status}</p>
-            </div>
-            <div class="button-histori-container">
-                <button type="button" name="Edit" class="todoEdit" id="todoEdit" data-id="${item.id}">Edit</button>
-                <button type="button" name="Delete" class="todoDelete" id="todoDelete" data-id="${item.id}">Delete</button>
-            </div>
-        `;
-
-        todoHistoryListContainer.appendChild(dataDiv);
-    });
-
-    // Add event listeners dynamically for edit and delete buttons
-    document.querySelectorAll(".todoDelete").forEach(button => {
-        button.addEventListener("click", function () {
-            let itemId = this.getAttribute("data-id");
-            todoDeleteItemFromLocalStorage(itemId);
-        });
-    });
-
-    document.querySelectorAll(".todoEdit").forEach(button => {
-        button.addEventListener("click", function () {
-            let itemId = this.getAttribute("data-id");
-            todoEditItemInLocalStorage(itemId);
-        });
-    });
-}
-
-
-function todoEditItemInLocalStorage(id){
-    let formInputs = todoGetDataFromLocal();
-    let foundObject = formInputs.find(item => item.id === id);
-
-    if (!foundObject) {
-        console.log('The ID is not found:', id);
-        return;
-    }
-
-    // Sätta formulärets värden
-    todoTitle.value = foundObject.title; 
-    todoCategory.value = foundObject.category;
-    todoTimeEstimate.value = foundObject.timeEstimate;
-    todoDeadline.value = foundObject.deadline;
-    todoDescription.value = foundObject.description;
-    todoDoneBox.checked = foundObject.status === "Completed";
-    todoNotDoneBox.checked = foundObject.status === "Incomplete";
-
-    // Visa och gömma knappar
-    todoSubmitButton.style.display = "none";
-    todoSaveChangesButton.style.display = "block";
-    todoClearButton.style.display = "block";
-
-    // Spara ändringar när man klickar "Save Changes"
-    todoSaveChangesButton.onclick = function () {
-        const updatedTodo = {
-            id: id,  // Behåll samma ID
-            title: todoTitle.value,
-            category: todoCategory.value,
-            timeEstimate: todoTimeEstimate.value,
-            deadline: todoDeadline.value,
-            description: todoDescription.value,
-            status: todoDoneBox.checked ? "Completed" : 
-                   todoNotDoneBox.checked ? "Incomplete" : "",
-        };
-
-        // Uppdatera rätt objekt i listan
-        formInputs = formInputs.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
-
-        // Spara den uppdaterade listan i localStorage
-        localStorage.setItem("formInputs", JSON.stringify(formInputs));
-
-        // Rensa formuläret och visa listan igen
-        todoClearForm();
-        todoDisplayDataFromLocalStorage();
-        todoSubmitButton.style.display = "block";
-        todoSaveChangesButton.style.display = "none";
-        todoClearButton.style.display = "none";
-    };
-
-}
-
-
-function todoDeleteItemFromLocalStorage(id) {
-
-    let formInputs = todoGetDataFromLocal();
-
-    // Filter out the item with the matching ID
-    formInputs = formInputs.filter(item => item.id !== id);
-
-    // Save the updated array back to localStorage
-    localStorage.setItem("formInputs", JSON.stringify(formInputs));
-
-    console.log(`Item with ID ${id} deleted successfully!`);
-
-    // saveChangesButton.setAttribute('data-id', id);
-    console.log(todoSaveChangesButton);
-    
-
-    // Refresh the displayed data
-    todoDisplayDataFromLocalStorage();
-}
-todoForm.addEventListener("submit", function(event) {
-    event.preventDefault(); // Förhindra att sidan laddas om
-    // svae data in object 
-    const todoData = {
-        title: todoTitle.value,
-        category: todoCategory.value,
-        timeEstimate: todoTimeEstimate.value,
-        deadline: todoDeadline.value,
-        description: todoDescription.value, 
-        status: todoDoneBox.checked ? "Completed" : todoNotDoneBox.checked ? "Incomplete" : "No status selected".value 
-    };
-    todoClearForm();
-
-    todoAddFormInputToLocalStorage(todoData);
-    todoDisplayDataFromLocalStorage();
-    console.log(todoGetDataFromLocal());
-    // console.log(todoEditItemInLocalStorage(), "detta är todos id");
-    //console.log(typeof(todoData.statustoe));
-     
+document.getElementById("sort-priority").addEventListener("click", () => {
+    sortOptions = "priority";
+    renderHabits();
 });
 
-document.getElementById('filter-status-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
-document.getElementById('time-estimate-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
-document.getElementById('deadline-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
-document.getElementById('category-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
-document.getElementById('sorting-status-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
+document.getElementById("sort-repetitions").addEventListener("click", () => {
+    sortOptions = "repetitions";
+    renderHabits();
+});
+
+document.getElementById("filter-low").addEventListener("click", () => {
+    filterOptions = "Low";
+    renderHabits();
+});
+
+document.getElementById("filter-medium").addEventListener("click", () => {
+    filterOptions = "Medium";
+    renderHabits();
+});
+
+document.getElementById("filter-high").addEventListener("click", () => {
+    filterOptions = "High";
+    renderHabits();
+});
+
+document.querySelector('.clear-btn').addEventListener('click', clearForm);
+
+// Radiobuttons checker
+let habitsRadioButtonIsChecked = () => {
+    let low = document.getElementById("priority-low");
+    let medium = document.getElementById("priority-medium");
+    let high = document.getElementById("priority-high");
+    if (low.checked)
+        return low.value;
+    else if(medium.checked)
+        return medium.value;
+    else if(high.checked)
+        return high.value;
+}
+
+function clearForm() {
+    document.getElementById("new-habit").reset();
+    const submitButton = document.querySelector(".habit-btn");
+    submitButton.removeAttribute('data-id');
+    submitButton.textContent = "Add Habit";
+}
+
+function renderHabits() {
+    let habits = getHabitsDataFromLocalStorage();
+
+    // Apply filter if there's a selected priority
+    if (filterOptions) {
+        habits = habits.filter(habit => habit.priority === filterOptions);
+    }
+
+    // Apply sorting based on selected criteria
+    if (sortOptions === "priority") {
+        habits.sort((a, b) => {
+            const priorities = ["Low", "Medium", "High"];
+            return priorities.indexOf(a.priority) - priorities.indexOf(b.priority);
+        });
+    } else if (sortOptions === "repetitions") {
+        habits.sort((a, b) => a.repetitions - b.repetitions);
+    }
+
+    const habitsListContainer = document.querySelector(".habits-list-wrapper");
+    habitsListContainer.innerHTML = "<h1>List of Habits</h1>";  // Reset the container
+
+    habits.forEach(habit => {
+        const habitDiv = document.createElement('div');
+        habitDiv.classList.add('habit');
+        habitDiv.id = habit.id;
+        habitDiv.innerHTML = `
+            <div class="habits-text-container">
+                <p><b>Title:</b> ${habit.title}</p>
+                <p><b>Repetitions:</b> ${habit.repetitions}</p>
+                <p><b>Priority:</b> ${habit.priority}</p>
+            </div>
+            <div class="habits-button-container">
+                <button class="habit-list-button-edit" onclick="editHabit('${habit.id}')">Edit</button>
+                <button class="habit-list-button-remove" onclick="removeHabit('${habit.id}')">Remove</button>
+            </div>
+        `;
+        habitsListContainer.appendChild(habitDiv);
+    });
+}
+
+// Remove habit
+function removeHabit(habitId) {
+    let habits = getHabitsDataFromLocalStorage();
+    const updatedHabits = habits.filter(habit => habit.id !== habitId);
+    localStorage.setItem("habits", JSON.stringify(updatedHabits));
+    renderHabits();
+}
+
+// Populates the form with current values for editing a habit
+function editHabit(habitId) {
+    let habits = getHabitsDataFromLocalStorage();
+    let habit = habits.find(h => h.id === habitId);
+
+    document.getElementById("habits-title").value = habit.title;
+    document.getElementById("habits-repetitions").value = habit.repetitions;
+    if (habit.priority === "Low") {
+        document.getElementById("priority-low").checked = true;
+    } else if (habit.priority === "Medium") {
+        document.getElementById("priority-medium").checked = true;
+    } else if (habit.priority === "High") {
+        document.getElementById("priority-high").checked = true;
+    }
+
+    const submitButton = document.querySelector(".habit-btn");
+    submitButton.textContent = "Update Habit";
+    submitButton.setAttribute('data-id', habit.id);
+}
+
+// Eventlistener function that creates a new habit OR updates an existing habit after editing
+document.querySelector('#new-habit').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const habitId = e.target.querySelector('.habit-btn').getAttribute('data-id');
+    const habit = {
+        title: e.target.elements['habits-title'].value,
+        repetitions: e.target.elements['habits-repetitions'].value,
+        priority: habitsRadioButtonIsChecked()
+    };
+
+    let habits = getHabitsDataFromLocalStorage();
+
+    if (habitId) {
+        habits = habits.map(h => {
+            if (h.id === habitId) {
+                return { ...h, ...habit };
+            }
+            return h;
+        });
+    } else {
+        habit.id = crypto.randomUUID();
+        habit.list = "habits";
+        habits.push(habit);
+    }
+
+    localStorage.setItem("habits", JSON.stringify(habits));
+    e.target.reset();
+    const submitButton = document.querySelector(".habit-btn");
+    submitButton.textContent = "Add Habit";
+    submitButton.removeAttribute('data-id');
+    renderHabits();
+});
