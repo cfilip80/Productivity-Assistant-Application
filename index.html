@@ -7,27 +7,36 @@
     <script defer src="script/home.js"></script>
     <title>Document</title>
 </head>
-<body>
+<body class="body-homepage">
     
     <nav class="nav">
         <div class="nav-links"><a href="index.html">Homepage</a></div>
         <div class="nav-links"><a href="todos-and-activities.html">Todos & Activities</a></div>
         <div class="nav-links"><a href="habits.html">Habits</a></div>
     </nav>
-    <main>
-        <div class=" todo-home-list">
-            <fieldset class="homepage-todos-fieldset">
-                <legend class="todos-homepage-legend">Incomplete Todos & Activities</legend>
-                <div id="incompleted-todos"></div>
-            </fieldset>
-        </div>
-        <div class="habits-home-list">
-            <fieldset class="homepage-habits-fieldset">
-                <legend class="habits-homepage-legend">Incomplete HAbits</legend>
-                <div id="incompleted-habits">
-                    
-                </div>
-            </fieldset>
+    <main class="main-homepage">
+        <div class="home-todo-and-habits-container">
+                <fieldset class="homepage-todos-fieldset">
+                    <legend class="todos-homepage-legend">Incomplete Todos</legend>
+                    <div class="todo-home-list">
+                        <div class="home-todos-wrapper">
+                        </div>
+                        <div class="home-todo-text-link">
+                        <a href="./todos-and-activities.html">Go to your Todo's</a>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="homepage-habits-fieldset">
+                    <legend class="habits-homepage-legend">Incomplete Habits</legend>
+                    <div class="habits-home-list">
+                        <div class="home-habits-wrapper">
+                        </div>
+                        <div class="home-habits-text-link">
+                        <a href="./habits.html">Go to your Habits</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
         </div>
     </main>
 </body>
