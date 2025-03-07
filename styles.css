@@ -31,7 +31,7 @@ main {
     align-items: center;
     justify-content:flex-start;
     width: 400px;
-    height: 600px;
+    height: auto;
     margin-top: 10px;
     font-size: 30px;
     color:#218838;
