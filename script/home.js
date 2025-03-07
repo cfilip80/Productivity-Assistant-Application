@@ -9,12 +9,14 @@ const getHabitsDataFromLocalStorage = () => {
 function renderHabits() {
     let habits = getHabitsDataFromLocalStorage();
 
-    
+    habits.sort((a, b) => b.repetitions - a.repetitions);
+    const topHabits = habits.slice(0, 3);
 
     const habitsListContainer = document.querySelector(".home-habits-wrapper");
-    // habitsListContainer.innerHTML = '';
 
-    habits.forEach(habit => {
+    habitsListContainer.innerHTML = '';
+
+    topHabits.forEach(habit => {
         const habitDiv = document.createElement('div');
         habitDiv.classList.add('incompleted-habits');
         habitDiv.innerHTML = `
