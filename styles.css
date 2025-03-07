@@ -242,33 +242,27 @@ button:hover {
 }
 
 .habit-list-button-edit {
-    background-color: #007bff;
-    border: 1px solid #0056b3;
-    color: white;
     border-radius: 5px;
-    width: 60px;
-    height: 30px;
+    width: 70px;
+    height: 25px;
     margin: 5px;
 }
 
 .habit-list-button-edit:hover {
     cursor: pointer;
-    background-color: #0056b3;
+    background-color: rgb(228, 226, 226);
 }
 
 .habit-list-button-remove {
-    background-color: #dc3545;
-    border: 1px solid #c82333;
-    color: white;
     border-radius: 5px;
-    width: 60px;
-    height: 30px;
+    width: 70px;
+    height: 25px;
     margin: 5px;
 }
 
 .habit-list-button-remove:hover {
     cursor: pointer;
-    background-color:#c82333;
+    background-color:rgb(228, 226, 226);
 }
 
 /* Dropdown Button */
