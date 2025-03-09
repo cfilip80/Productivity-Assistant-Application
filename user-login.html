@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login & Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-links"><a href="index.html">Homepage</a></div>
+        <div class="nav-links"><a href="todos-and-activities.html">Todos</a></div>
+        <div class="nav-links"><a href="habits.html">Habits</a></div>
+        <div class="nav-links"><a href="user-login.html">Login</a></div>
+    </nav>
+
+    <main class="main-login-page">
+        <fieldset class="fieldset-login-container">
+            <legend>Login or Register</legend>
+            <h2 id="form-title">Login</h2>
+
+            <!-- Login Form -->
+            <form id="login-form">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" placeholder="Username"  required>
+
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" required>
+
+                <div class="loginOrRegisterButton"><button type="submit">Login</button></div>
+                <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+            </form>
+
+            <!-- Register Form (Hidden by Default) -->
+            <form id="register-form" style="display: none;">
+                <label for="register-username">Username:</label>
+                <input type="text" id="register-username" required>
+
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" required>
+
+                <div class="loginOrRegisterButton"><button type="submit">Login</button></div>
+                <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+            </form>
+        </fieldset>
+    </main>
+
+    <script defer src="script/user-login-register.js"></script>
+</body>
+</html>

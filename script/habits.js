@@ -1,14 +1,37 @@
 const habitsTitle = document.getElementById("habits-title");
 const habitsRepetitions = document.getElementById("habits-repetitions");
+const loggedInUser = sessionStorage.getItem("loggedInUser");
 
-// Display list of habits from local storage when page is loaded
-document.addEventListener('DOMContentLoaded', renderHabits);
+document.addEventListener("DOMContentLoaded", () => {
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    if (loggedInUser) {
+        loginBtn.style.display = "none"; 
+        logoutBtn.style.display = "block";
+    } else {
+        loginBtn.style.display = "block";
+        logoutBtn.style.display = "none"; 
+        alert("You need to log in first!");
+        window.location.href = "user-login.html"; 
+    }
+
+    logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("loggedInUser");
+        window.location.href = "user-login.html"; 
+    });
+});
+
+function saveUserData(updatedData) {
+    localStorage.setItem(loggedInUser, JSON.stringify(updatedData));
+}
 
 const getHabitsDataFromLocalStorage = () => {
-    let storedData = localStorage.getItem("habits");
-    let habits = storedData ? JSON.parse(storedData) : [];
-    return habits
+    const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
+    return userData;
 }
+
+console.log(getHabitsDataFromLocalStorage());
 
 let habitsSortOptions = "priority";
 let habitsFilterOptions = "";
@@ -61,15 +84,16 @@ function habitsClearForm() {
     submitButton.textContent = "Add Habit";
 }
 
+
 function renderHabits() {
-    let habits = getHabitsDataFromLocalStorage();
+    let userData = getHabitsDataFromLocalStorage();
+    let habits = userData.habits;
 
     if (habitsFilterOptions) {
         habits = habits.filter(habit => habit.priority === habitsFilterOptions);
     }
 
     const selectedSortOption = document.getElementById("sort-options").value;
-
     if (selectedSortOption === "priority-asc") {
         habits.sort((a, b) => {
             const priorities = ["Low", "Medium", "High"];
@@ -89,6 +113,7 @@ function renderHabits() {
     const habitsListContainer = document.querySelector(".habits-list-wrapper");
     habitsListContainer.innerHTML = '<h2 class="h2-list-title">List of Habits</h2>';
 
+    // Render each habit in the list
     habits.forEach(habit => {
         const habitDiv = document.createElement('div');
         habitDiv.classList.add('habit');
@@ -108,21 +133,25 @@ function renderHabits() {
     });
 }
 
-// Remove habit by id
 function removeHabit(habitId) {
-    let habits = getHabitsDataFromLocalStorage();
-    const updatedHabits = habits.filter(habit => habit.id !== habitId);
-    localStorage.setItem("habits", JSON.stringify(updatedHabits));
+    let userData = getHabitsDataFromLocalStorage();
+    userData.habits = userData.habits.filter(habit => habit.id !== habitId);
+
+    saveUserData(userData);
     renderHabits();
 }
 
-// Populates the form with current values for editing a habit
-function editHabit(habitId) {
-    let habits = getHabitsDataFromLocalStorage();
-    let habit = habits.find(h => h.id === habitId);
 
+function editHabit(habitId) {
+    let userData = getHabitsDataFromLocalStorage();
+    let habit = userData.habits.find(h => h.id === habitId);
+
+    if (!habit) return;
+
+    // Populate form fields
     document.getElementById("habits-title").value = habit.title;
     document.getElementById("habits-repetitions").value = habit.repetitions;
+    
     if (habit.priority === "Low") {
         document.getElementById("priority-low").checked = true;
     } else if (habit.priority === "Medium") {
@@ -136,33 +165,25 @@ function editHabit(habitId) {
     submitButton.setAttribute('data-id', habit.id);
 }
 
-// Eventlistener function that creates a new habit OR updates an existing habit after editing in the form
 document.querySelector('#new-habit').addEventListener('submit', function (e) {
     e.preventDefault();
 
     const habitId = e.target.querySelector('.habit-btn').getAttribute('data-id');
+    let userData = getHabitsDataFromLocalStorage();
+
     const habit = {
+        id: habitId ? habitId : crypto.randomUUID(),
         title: e.target.elements['habits-title'].value,
         repetitions: e.target.elements['habits-repetitions'].value,
-        priority: habitsRadioButtonIsChecked()
+        priority: habitsRadioButtonIsChecked(),
     };
 
-    let habits = getHabitsDataFromLocalStorage();
-
     if (habitId) {
-        habits = habits.map(h => {
-            if (h.id === habitId) {
-                return { ...h, ...habit };
-            }
-            return h;
-        });
+        userData.habits = userData.habits.map(h => (h.id === habitId ? { ...h, ...habit } : h));
     } else {
-        habit.id = crypto.randomUUID();
-        habit.list = "habits";
-        habits.push(habit);
+        userData.habits.push(habit);
     }
-
-    localStorage.setItem("habits", JSON.stringify(habits));
+    saveUserData(userData);
     e.target.reset();
     const submitButton = document.querySelector(".habit-btn");
     submitButton.textContent = "Add Habit";

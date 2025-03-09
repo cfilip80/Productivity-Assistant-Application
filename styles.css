@@ -6,7 +6,68 @@ main {
     display: flex;
     flex-direction: row;
 }
+/* ------------------------------------------------ */
 
+.main-login-page {
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    width: 100%;
+    height: 1000px;
+    border: 1px solid black;
+}
+
+.fieldset-login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:flex-start;
+    width: 400px;
+    height: auto;
+    margin-top: 10px;
+    font-size: 30px;
+    color:#218838;
+    background-color: #F5F5F5;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.fieldset-login-container h2, .fieldset-register-container h2 {
+    color: black;
+    font-size: larger;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form label, #register-form label {
+    color: black;
+    font-size: 22px;
+
+}
+
+#login-form p, #register-form p {
+    color: black;
+    font-size: 20px;
+
+}
+
+.loginOrRegisterButton button {
+    width: 100px;
+    height: 25px;
+}
+
+input#login-password, input#login-username, input#register-password, input#register-username {
+    height: 25px;
+    width: 250px;
+    border-radius: 5px;
+    border: .5px solid black;
+}
+
+/* ------------------------------------------------- */
 .main-homepage {
     display: flex;
     justify-content: center;
@@ -101,16 +162,29 @@ main {
     text-align: center;
     height: 30px;
     width: 100px;
-    padding: 5px;
     border: 1px solid white;
     border-radius: 5px;
     margin-right: 30px;
 }
 
 .nav-links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     color: white;
     font-size: 15px;
     text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links:hover {
+    background-color: white;
+}
+
+.nav-links a:hover {
+    color: #263F5C;
 }
 
 .habits-list-container{
