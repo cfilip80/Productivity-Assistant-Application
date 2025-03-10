@@ -184,7 +184,7 @@ function todoDisplayDataFromLocalStorage() {
 
 function todoEditItemInLocalStorage(id) {
     let userData = todoGetDataFromLocal();  // Get user-specific data
-    let todosArray = userData.todos || [];
+    let todosArray = userData.todos;
     
     let foundObject = todosArray.find(item => item.id === id);
 
@@ -221,8 +221,7 @@ function todoEditItemInLocalStorage(id) {
         };
 
         // Update the correct object in the user's todos array
-        todosArray = todosArray.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
-
+        userData.todos = userData.todos.map(item => item.id === id ? updatedTodo : item);
         // Save updated user data back to localStorage under the user's key
         localStorage.setItem(loggedInUser, JSON.stringify(userData));
 
@@ -239,13 +238,15 @@ function todoEditItemInLocalStorage(id) {
 
 function todoDeleteItemFromLocalStorage(id) {
     let userData = todoGetDataFromLocal(); // Get the existing user data
-    let data = userData.todos;
-    if (!data) {
+    let todosArray = userData.todos;
+    if (!userData) {
         data = []; // Ensure there's a todos array
     }
 
-    // Filter out the item with the matching ID
-    data = data.filter(item => item.id !== id);
+    let updatedTodos = todosArray.filter(item => item.id !== id);
+
+    // Uppdatera användardata med den nya listan
+    userData.todos = updatedTodos;
 
     // Save the updated object back under the logged-in user's key
     localStorage.setItem(loggedInUser, JSON.stringify(userData));
