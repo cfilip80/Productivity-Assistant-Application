@@ -411,6 +411,7 @@ button:hover {
 
 
   /* Todos and activities css */
+
 .todo-list-container{
     display: inline-block;
     justify-items: center;
@@ -440,10 +441,11 @@ button:hover {
   
   .todo-input-container {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content:flex-start;
+      align-items: flex-start;
       width:50%;
       height:1000px;
+      margin-top: 50px;
   }
   
   .todo-fieldset {
