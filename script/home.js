@@ -1,4 +1,26 @@
-document.addEventListener('DOMContentLoaded', renderHabits);
+const loggedInUser = sessionStorage.getItem("loggedInUser");
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    if (loggedInUser) {
+        loginBtn.style.display = "none"; 
+        logoutBtn.style.display = "block";
+    } else {
+        loginBtn.style.display = "block";
+        logoutBtn.style.display = "none"; 
+        alert("You need to log in first!");
+        window.location.href = "user-login.html"; 
+    }
+
+    logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("loggedInUser");
+        window.location.href = "user-login.html"; 
+    });
+
+    renderHabits();
+});
 
 const getHabitsDataFromLocalStorage = () => {
     let storedData = localStorage.getItem("habits");
