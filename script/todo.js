@@ -271,10 +271,6 @@ todoForm.addEventListener("submit", function(event) {
 
     todoAddFormInputToLocalStorage(todoData);
     todoDisplayDataFromLocalStorage()
-    console.log(todoGetDataFromLocal());
-    // console.log(todoEditItemInLocalStorage(), "detta är todos id");
-    //console.log(typeof(todoData.statustoe));
-     
 });
 
 document.getElementById('filter-status-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
