@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sessionStorage.removeItem("loggedInUser");
         window.location.href = "user-login.html"; 
     });
+    todoDisplayDataFromLocalStorage();
 });
 
 // Clear form Function
@@ -269,7 +270,7 @@ todoForm.addEventListener("submit", function(event) {
     todoClearForm();
 
     todoAddFormInputToLocalStorage(todoData);
-    todoDisplayDataFromLocalStorage();
+    todoDisplayDataFromLocalStorage()
     console.log(todoGetDataFromLocal());
     // console.log(todoEditItemInLocalStorage(), "detta är todos id");
     //console.log(typeof(todoData.statustoe));

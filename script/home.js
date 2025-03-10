@@ -72,15 +72,12 @@ function renderHabits() {
     });
 }
 
-//document.addEventListener('DOMContentLoaded', todoDisplayData);
+document.addEventListener('DOMContentLoaded', todoDisplayData);
 
 function todoGetLastThreePendingTasks() {
-    // Hämta lagrad data från localStorage
-    let storedData = localStorage.getItem("formInputs");
-    // Om det finns data, omvandla det till en array, annars använd en tom array
-    let formInputs = storedData ? JSON.parse(storedData) : [];
-    // Filtrera ut alla ej utförda ärenden (inte "Done")
-    let pendingTasks = formInputs.filter(task => task.status !== "Completed");
+    const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
+    let storedData = userData.todos;
+    let pendingTasks = storedData.filter(task => task.status !== "Completed");
     // Sortera efter tid om objektet har en timestamp (nyaste först)
     pendingTasks.sort((a, b) => new Date(b.deadline) - new Date(a.deadline));
     // Hämta de tre senaste ärendena
@@ -88,13 +85,18 @@ function todoGetLastThreePendingTasks() {
 
     return lastThreeTasks;
 }
-console.log(todoGetLastThreePendingTasks());
+ 
 
-// Anropa funktionen och visa resultat i konsolen
-console.log(todoGetLastThreePendingTasks());
 function todoDisplayData(){
-   let data = todoGetLastThreePendingTasks ();
-   incompletedTodos = document.querySelector(".home-todos-wrapper");
+   let data = todoGetLastThreePendingTasks();
+
+    let incompletedTodos = document.querySelector(".home-todos-wrapper");
+    if (!incompletedTodos) {
+        console.error("Element with class 'home-todos-wrapper' not found.");
+        return;
+    }
+
+    incompletedTodos.innerHTML = "";
    data.forEach(item => {
     let dataDiv = document.createElement("div");
     dataDiv.classList.add("incompleted-todos");
@@ -112,6 +114,7 @@ function todoDisplayData(){
     });
 
 }
-console.log(todoDisplayData());
+
+
 
 
