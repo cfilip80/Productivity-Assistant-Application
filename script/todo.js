@@ -12,10 +12,10 @@ const todoSaveButtonContainer = document.querySelector("todo-save-submit-button-
 const todoSaveChangesButton = document.getElementById("saveChanges");
 const todoClearButton = document.getElementById("clearButton");
 const loggedInUser = sessionStorage.getItem("loggedInUser");
+const loginBtn = document.getElementById("login-btn");
+const logoutBtn = document.getElementById("logout-btn");
 
 document.addEventListener("DOMContentLoaded", () => {
-    const loginBtn = document.getElementById("login-btn");
-    const logoutBtn = document.getElementById("logout-btn");
 
     if (loggedInUser) {
         loginBtn.style.display = "none"; 
@@ -221,7 +221,7 @@ function todoEditItemInLocalStorage(id) {
         };
 
         // Update the correct object in the user's todos array
-        userData.todos = todosArray.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
+        todosArray = todosArray.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
 
         // Save updated user data back to localStorage under the user's key
         localStorage.setItem(loggedInUser, JSON.stringify(userData));
@@ -239,13 +239,13 @@ function todoEditItemInLocalStorage(id) {
 
 function todoDeleteItemFromLocalStorage(id) {
     let userData = todoGetDataFromLocal(); // Get the existing user data
-
-    if (!userData.todos) {
-        userData.todos = []; // Ensure there's a todos array
+    let data = userData.todos;
+    if (!data) {
+        data = []; // Ensure there's a todos array
     }
 
     // Filter out the item with the matching ID
-    userData.todos = userData.todos.filter(item => item.id !== id);
+    data = data.filter(item => item.id !== id);
 
     // Save the updated object back under the logged-in user's key
     localStorage.setItem(loggedInUser, JSON.stringify(userData));
