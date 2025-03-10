@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Save logged-in user in sessionStorage
         sessionStorage.setItem("loggedInUser", username);
-        alert("Login successful!");
+        // alert("Login successful!");
         window.location.href = "index.html"; // Redirect to index page
     });
 });
