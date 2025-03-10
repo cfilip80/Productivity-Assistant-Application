@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("https://dummyjson.com/quotes/random")
         .then(response => response.json())
         .then(data => {
-            quoteContainer.innerHTML = `<p><i>"${data.quote}"</i> - ${data.author}</p>`;
+            quoteContainer.innerHTML = `
+            <h3><B>Quote of the Day:</B></h3>
+            <p><i>"${data.quote}"</i> - ${data.author}</p>`;
         })
         .catch(error => {
             quoteContainer.innerHTML = `<p>Could not load quote. Try again later.</p>`;
@@ -44,17 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHabits();
 });
 
+// const getHabitsDataFromLocalStorage = () => {
+//     let storedData = localStorage.getItem("habits");
+//     let habits = storedData ? JSON.parse(storedData) : [];
+//     return habits
+// }
+
 const getHabitsDataFromLocalStorage = () => {
-    let storedData = localStorage.getItem("habits");
-    let habits = storedData ? JSON.parse(storedData) : [];
-    return habits
+    const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
+    return userData;
 }
 
 function renderHabits() {
-    let habits = getHabitsDataFromLocalStorage();
+    let userData = getHabitsDataFromLocalStorage();
 
-    habits.sort((a, b) => b.repetitions - a.repetitions);
-    const topHabits = habits.slice(0, 3);
+    userData.habits.sort((a, b) => b.repetitions - a.repetitions);
+    const topHabits = userData.habits.slice(0, 3);
 
     const habitsListContainer = document.querySelector(".home-habits-wrapper");
 
