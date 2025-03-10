@@ -1,6 +1,28 @@
 const loggedInUser = sessionStorage.getItem("loggedInUser");
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    const username = sessionStorage.getItem("loggedInUser");
+    const welcomeMessageDiv = document.getElementById("welcome-message");
+    const quoteContainer = document.getElementById("quote-container");
+
+    if (username) {
+        welcomeMessageDiv.innerHTML = `<p>You are logged in as: <strong>${username}</strong>.</p>`;
+    } else {
+        welcomeMessageDiv.innerHTML = `<p>You are not logged in.</p>`;
+    }
+
+    // Fetch a random quote from Quotable API
+    fetch("https://dummyjson.com/quotes/random")
+        .then(response => response.json())
+        .then(data => {
+            quoteContainer.innerHTML = `<p><i>"${data.quote}"</i> - ${data.author}</p>`;
+        })
+        .catch(error => {
+            quoteContainer.innerHTML = `<p>Could not load quote. Try again later.</p>`;
+            console.error("Error fetching quote:", error);
+        });
+
     const loginBtn = document.getElementById("login-btn");
     const logoutBtn = document.getElementById("logout-btn");
 
