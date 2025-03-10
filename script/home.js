@@ -46,12 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHabits();
 });
 
-// const getHabitsDataFromLocalStorage = () => {
-//     let storedData = localStorage.getItem("habits");
-//     let habits = storedData ? JSON.parse(storedData) : [];
-//     return habits
-// }
-
 const getHabitsDataFromLocalStorage = () => {
     const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
     return userData;
