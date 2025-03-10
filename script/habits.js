@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
         sessionStorage.removeItem("loggedInUser");
         window.location.href = "user-login.html"; 
     });
+
+    renderHabits();
 });
 
 function saveUserData(updatedData) {
@@ -31,7 +33,6 @@ const getHabitsDataFromLocalStorage = () => {
     return userData;
 }
 
-console.log(getHabitsDataFromLocalStorage());
 
 let habitsSortOptions = "priority";
 let habitsFilterOptions = "";
