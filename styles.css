@@ -172,7 +172,7 @@ input#login-password, input#login-username, input#register-password, input#regis
     width: 100%;
     height: 100px;
     background-color: #263F5C;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 0 20px;
 }
 
@@ -328,7 +328,7 @@ button:hover {
     height: 150px;
     border: 1px solid black;
     border-radius: 10px;
-    margin-top: 10px;
+    margin-top: 5px;
     padding-left: 10px;
     background-color: #F5F5F5;
 }

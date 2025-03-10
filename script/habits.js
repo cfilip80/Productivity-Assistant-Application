@@ -112,7 +112,7 @@ function renderHabits() {
     }
 
     const habitsListContainer = document.querySelector(".habits-list-wrapper");
-    habitsListContainer.innerHTML = '<h2 class="h2-list-title">List of Habits</h2>';
+    // habitsListContainer.innerHTML = '<h2 class="h2-list-title">List of Habits</h2>';
 
     // Render each habit in the list
     habits.forEach(habit => {
