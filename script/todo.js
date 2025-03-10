@@ -11,8 +11,27 @@ const todoSubmitButton = document.getElementById("subId");
 const todoSaveButtonContainer = document.querySelector("todo-save-submit-button-container");
 const todoSaveChangesButton = document.getElementById("saveChanges");
 const todoClearButton = document.getElementById("clearButton");
+const loggedInUser = sessionStorage.getItem("loggedInUser");
 
-document.addEventListener('DOMContentLoaded', todoDisplayDataFromLocalStorage);
+document.addEventListener("DOMContentLoaded", () => {
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    if (loggedInUser) {
+        loginBtn.style.display = "none"; 
+        logoutBtn.style.display = "block";
+    } else {
+        loginBtn.style.display = "block";
+        logoutBtn.style.display = "none"; 
+        alert("You need to log in first!");
+        window.location.href = "user-login.html"; 
+    }
+
+    logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("loggedInUser");
+        window.location.href = "user-login.html"; 
+    });
+});
 
 // Clear form Function
 const todoClearForm = () => {
@@ -27,26 +46,26 @@ const todoClearForm = () => {
 }
 
 function todoGetDataFromLocal(){
-    // Retrieve existing data from localStorage
-    let storedData = localStorage.getItem("formInputs");
-    // Parse it to an array or initialize an empty array if there's no data
-    let formInputs = storedData ? JSON.parse(storedData) : [];
-    console.log(formInputs);
-    
-    return formInputs;
+    const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
+    return userData;
 }
  
 function todoAddFormInputToLocalStorage(newObject) {
 
     let formInputs = todoGetDataFromLocal();
+     // Ensure the user has a todos array
+     if (!formInputs.todos) {
+        formInputs.todos = [];
+    }
+
     // Assign a unique key (ID) to the new object
     newObject.id = crypto.randomUUID();
 
     // Add the new object to the array
-    formInputs.push(newObject);
+    formInputs.todos.push(newObject);
 
     // Save updated array back to localStorage
-    localStorage.setItem("formInputs", JSON.stringify(formInputs));
+    localStorage.setItem(loggedInUser, JSON.stringify(formInputs));
     console.log("-------Data har skickats till LocalStorage-------")
 
     console.log("New object added successfully!");
@@ -55,6 +74,7 @@ function todoAddFormInputToLocalStorage(newObject) {
 
 function todoDisplayDataFromLocalStorage() {
     let formInputs = todoGetDataFromLocal();
+    let todosArray = formInputs.todos;
 
     // Get the filter and sorting values from the dropdowns
     const statusFilterValue = document.getElementById('filter-status-filter').value;
@@ -66,18 +86,18 @@ function todoDisplayDataFromLocalStorage() {
     // Filter by status
     if (statusFilterValue !== "all") {
         const status = statusFilterValue === 'Completed' ? 'Completed' : 'Incomplete';
-        formInputs = formInputs.filter(item => item.status === status);
+        todosArray = todosArray.filter(item => item.status === status);
     }
 
     // Filter by category
     if (categoryFilterValue !== "all") {
-        formInputs = formInputs.filter(item => item.category === categoryFilterValue);
+        todosArray = todosArray.filter(item => item.category === categoryFilterValue);
     }
 
     // Apply sorting logic
     // Sort by status
     if (statusSortValue !== "all") {
-        formInputs = formInputs.sort((a, b) => {
+        todosArray = todosArray.sort((a, b) => {
             if (statusSortValue === "Status-asc") {
                 // Sort "Completed" first, then "Incomplete"
                 return a.status === "Completed" ? -1 : 1; // Ascending order
@@ -91,7 +111,7 @@ function todoDisplayDataFromLocalStorage() {
 
     // Sort by time estimate
     if (timeEstimateFilterValue !== "all") {
-        formInputs = formInputs.sort((a, b) => {
+        todosArray = todosArray.sort((a, b) => {
             if (timeEstimateFilterValue === "TimeEstimate-asc") {
                 return a.timeEstimate - b.timeEstimate; // Ascending order
             } else if (timeEstimateFilterValue === "TimeEstimate-desc") {
@@ -103,7 +123,7 @@ function todoDisplayDataFromLocalStorage() {
 
     // Sort by deadline
     if (deadlineFilterValue !== "all") {
-        formInputs = formInputs.sort((a, b) => {
+        todosArray = todosArray.sort((a, b) => {
             let dateA = new Date(a.deadline);
             let dateB = new Date(b.deadline);
             if (deadlineFilterValue === "Deadline-asc") {
@@ -122,7 +142,7 @@ function todoDisplayDataFromLocalStorage() {
     todoHistoryListContainer.innerHTML = "";
 
     // Loop through the filtered and sorted data and create divs for each item
-    formInputs.forEach(item => {
+    todosArray.forEach(item => {
         let dataDiv = document.createElement("div");
         dataDiv.classList.add("todo-and-activities-list");
 
@@ -161,16 +181,18 @@ function todoDisplayDataFromLocalStorage() {
 }
 
 
-function todoEditItemInLocalStorage(id){
-    let formInputs = todoGetDataFromLocal();
-    let foundObject = formInputs.find(item => item.id === id);
+function todoEditItemInLocalStorage(id) {
+    let userData = todoGetDataFromLocal();  // Get user-specific data
+    let todosArray = userData.todos || [];
+    
+    let foundObject = todosArray.find(item => item.id === id);
 
     if (!foundObject) {
         console.log('The ID is not found:', id);
         return;
     }
 
-    // Sätta formulärets värden
+    // Set form values
     todoTitle.value = foundObject.title; 
     todoCategory.value = foundObject.category;
     todoTimeEstimate.value = foundObject.timeEstimate;
@@ -179,15 +201,15 @@ function todoEditItemInLocalStorage(id){
     todoDoneBox.checked = foundObject.status === "Completed";
     todoNotDoneBox.checked = foundObject.status === "Incomplete";
 
-    // Visa och gömma knappar
+    // Show & hide buttons
     todoSubmitButton.style.display = "none";
     todoSaveChangesButton.style.display = "block";
     todoClearButton.style.display = "block";
 
-    // Spara ändringar när man klickar "Save Changes"
+    // Save changes when clicking "Save Changes"
     todoSaveChangesButton.onclick = function () {
         const updatedTodo = {
-            id: id,  // Behåll samma ID
+            id: id,  // Keep the same ID
             title: todoTitle.value,
             category: todoCategory.value,
             timeEstimate: todoTimeEstimate.value,
@@ -197,42 +219,42 @@ function todoEditItemInLocalStorage(id){
                    todoNotDoneBox.checked ? "Incomplete" : "",
         };
 
-        // Uppdatera rätt objekt i listan
-        formInputs = formInputs.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
+        // Update the correct object in the user's todos array
+        userData.todos = todosArray.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
 
-        // Spara den uppdaterade listan i localStorage
-        localStorage.setItem("formInputs", JSON.stringify(formInputs));
+        // Save updated user data back to localStorage under the user's key
+        localStorage.setItem(loggedInUser, JSON.stringify(userData));
 
-        // Rensa formuläret och visa listan igen
+        // Clear form and refresh the displayed data
         todoClearForm();
         todoDisplayDataFromLocalStorage();
+        
+        // Restore button visibility
         todoSubmitButton.style.display = "block";
         todoSaveChangesButton.style.display = "none";
         todoClearButton.style.display = "none";
     };
-
 }
 
-
 function todoDeleteItemFromLocalStorage(id) {
+    let userData = todoGetDataFromLocal(); // Get the existing user data
 
-    let formInputs = todoGetDataFromLocal();
+    if (!userData.todos) {
+        userData.todos = []; // Ensure there's a todos array
+    }
 
     // Filter out the item with the matching ID
-    formInputs = formInputs.filter(item => item.id !== id);
+    userData.todos = userData.todos.filter(item => item.id !== id);
 
-    // Save the updated array back to localStorage
-    localStorage.setItem("formInputs", JSON.stringify(formInputs));
+    // Save the updated object back under the logged-in user's key
+    localStorage.setItem(loggedInUser, JSON.stringify(userData));
 
     console.log(`Item with ID ${id} deleted successfully!`);
-
-    // saveChangesButton.setAttribute('data-id', id);
-    console.log(todoSaveChangesButton);
-    
 
     // Refresh the displayed data
     todoDisplayDataFromLocalStorage();
 }
+
 todoForm.addEventListener("submit", function(event) {
     event.preventDefault(); // Förhindra att sidan laddas om
     // svae data in object 
