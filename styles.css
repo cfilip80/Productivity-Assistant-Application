@@ -13,11 +13,21 @@ main {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100px;
-    border: 1px solid black;
+    height: auto;
 }
 
-/* ------------------------------------------------ */
+#welcome-message, #quote-container {
+    width: 30%;
+    height: auto;
+}
+
+#welcome-message p, #quote-container p {
+    font-size: 18px;
+}
+
+#quote-container {
+    padding: 0 10px;
+}
 
 .main-login-page {
     display: flex;
@@ -78,14 +88,12 @@ input#login-password, input#login-username, input#register-password, input#regis
     border: .5px solid black;
 }
 
-/* ------------------------------------------------- */
 .main-homepage {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items:flex-start;
     height: 800px;
     width: 100%;
-    /* border: 1px solid black; */
 }
 
 .home-todo-and-habits-container {
@@ -94,7 +102,6 @@ input#login-password, input#login-username, input#register-password, input#regis
     align-items:flex-start;
     height: 600px;
     width: 850px;
-    /* border: 1px solid black; */
 }
 
 .homepage-todos-fieldset, .homepage-habits-fieldset {
@@ -151,8 +158,6 @@ input#login-password, input#login-username, input#register-password, input#regis
     flex-direction: column;
     font-size: 15px;
     color: black;
-    /* border: 1px solid black;
-    border-radius: 10px; */
 }
 
 .h2-list-title {
@@ -323,7 +328,6 @@ button:hover {
     width: 50%;
     height: auto;
     padding-right: 10px;
-    /* border: 1px solid black; */
 }
 
 .habit-list-button-edit {
