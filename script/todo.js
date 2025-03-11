@@ -254,3 +254,13 @@ document.getElementById('time-estimate-filter').addEventListener('change', todoD
 document.getElementById('deadline-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
 document.getElementById('category-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
 document.getElementById('sorting-status-filter').addEventListener('change', todoDisplayDataFromLocalStorage);
+todoClearButton.addEventListener('click', function(){
+    todoClearForm();
+    todoSubmitButton.style.display = "block";
+    todoSaveChangesButton.style.display = "none";
+    todoClearButton.style.display = "none";
+    console.log(todoClearButton);
+    console.log(todoSaveChangesButton);
+    
+    
+});
