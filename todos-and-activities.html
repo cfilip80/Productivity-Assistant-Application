@@ -29,14 +29,14 @@
                             <option value="Status-asc">Completed (Ascending)</option>
                             <option value="Status-desc">Incomplete (Descending)</option>
                         </select>
-                        <label for="start">Time estimate:</label>
+                        <label for="time-estimate-filter">Time estimate:</label>
                         <select id="time-estimate-filter">
                             <option value="all">Alla</option>
                             <option value="TimeEstimate-asc">Time Estimate(Ascending)</option>
                             <option value="TimeEstimate-desc">Time Estimate(Descending)</option>
                         </select>
         
-                        <label for="deadline">End Date and Time:</label>
+                        <label for="deadline-filter">End Date and Time:</label>
                         <select id="deadline-filter">
                             <option value="all">Alla</option>
                             <option value="Deadline-asc">Deadline (Ascending)</option>
@@ -82,7 +82,7 @@
                         <label for="todo-title">Titel:</label>
                         <input type="text" id="todo-title" name="todo-title" required>
                     </div>
-                    <label for="category">Category:</label>
+                    <label for="todo-category">Category:</label>
                     <select id="todo-category" name="category">
                         <option value=" empty">   </option>
                         <option value="Health">Health</option>
@@ -91,20 +91,20 @@
                         <option value="Pleasure">Pleasure</option>
                     </select>  <br>
 
-                    <label for="start">Time estimate (Hours):</label>
+                    <label for="todo-time-estimate">Time estimate (Hours):</label>
                     <input type="number" id="todo-time-estimate" name="time-estimate" required>
 
-                    <label for="deadline">End Date and Time:</label>
+                    <label for="todo-deadline">End Date and Time:</label>
                     <input type="datetime-local" id="todo-deadline" name="deadline" required>
 
                     <label for="description">Description:</label>
                     <textarea id="description" name="description" rows="4" required></textarea>
                     <fieldset class="todo-status-container">
                         <legend >Status</legend>
-                        <label for="status">Completed:</label>
+                        <label for="todo-done-status">Completed:</label>
                         <input type="radio" id="todo-done-status" name="status" required value="Completed">
 
-                        <label for="status">Incomplete:</label>
+                        <label for="todo-notDone-status">Incomplete:</label>
                         <input type="radio" id="todo-notDone-status" name="status"required value="Incomplete">
                     </fieldset>
                     <div class="todo-save-submit-button-container">
