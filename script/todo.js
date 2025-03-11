@@ -52,16 +52,17 @@ function todoGetDataFromLocal(){
  
 function todoAddFormInputToLocalStorage(newObject) {
 
-    let formInputs = todoGetDataFromLocal();
-     if (!formInputs.todos) {
-        formInputs.todos = [];
+    let formInput = todoGetDataFromLocal();
+    let formInputs = formInput.todos;
+     if (!formInputs) {
+        formInputs = [];
     }
 
     newObject.id = crypto.randomUUID();
 
-    formInputs.todos.push(newObject);
+    formInputs.push(newObject);
 
-    localStorage.setItem(loggedInUser, JSON.stringify(formInputs));
+    localStorage.setItem(loggedInUser, JSON.stringify(formInput));
     console.log("-------Data har skickats till LocalStorage-------")
 
     console.log("New object added successfully!");
@@ -146,6 +147,7 @@ function todoDisplayDataFromLocalStorage() {
         `;
 
         todoHistoryListContainer.appendChild(dataDiv);
+        
     });
 
     document.querySelectorAll(".todoDelete").forEach(button => {
@@ -166,7 +168,7 @@ function todoDisplayDataFromLocalStorage() {
 
 function todoEditItemInLocalStorage(id) {
     let userData = todoGetDataFromLocal();
-    let todosArray = userData.todos || [];
+    let todosArray = userData.todos;
     
     let foundObject = todosArray.find(item => item.id === id);
 
@@ -199,7 +201,7 @@ function todoEditItemInLocalStorage(id) {
                    todoNotDoneBox.checked ? "Incomplete" : "",
         };
 
-        todosArray = todosArray.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
+        userData.todos = userData.todos.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
         localStorage.setItem(loggedInUser, JSON.stringify(userData));
 
         todoClearForm();
@@ -218,12 +220,12 @@ function todoDeleteItemFromLocalStorage(id) {
         data = [];
     }
 
-    let updatedTodos = todosArray.filter(item => item.id !== id);
+    let updatedTodos = data.filter(item => item.id !== id);
 
-    // Uppdatera användardata med den nya listan
     userData.todos = updatedTodos;
+    console.log(updatedTodos);
+    
 
-    // Save the updated object back under the logged-in user's key
     localStorage.setItem(loggedInUser, JSON.stringify(userData));
 
     console.log(`Item with ID ${id} deleted successfully!`);
