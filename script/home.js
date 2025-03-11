@@ -16,9 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("https://dummyjson.com/quotes/random")
         .then(response => response.json())
         .then(data => {
-            quoteContainer.innerHTML = `
-            <h3><B>Quote of the Day:</B></h3>
-            <p><i>"${data.quote}"</i> - ${data.author}</p>`;
+            quoteContainer.innerHTML = `<p><i>"${data.quote}"</i> - ${data.author}</p>`;
         })
         .catch(error => {
             quoteContainer.innerHTML = `<p>Could not load quote. Try again later.</p>`;
@@ -72,7 +70,6 @@ function renderHabits() {
         habitsListContainer.appendChild(habitDiv);
     });
 }
-
 document.addEventListener('DOMContentLoaded', todoDisplayData);
 
 function todoGetLastThreePendingTasks() {
@@ -96,7 +93,7 @@ function todoDisplayData(){
         console.error("Element with class 'home-todos-wrapper' not found.");
         return;
     }
-
+ 
     incompletedTodos.innerHTML = "";
    data.forEach(item => {
     let dataDiv = document.createElement("div");
