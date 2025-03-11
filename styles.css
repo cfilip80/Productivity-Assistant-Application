@@ -166,27 +166,26 @@ input#login-password, input#login-username, input#register-password, input#regis
 
 .nav {
     display: flex;
-    justify-content: center; /* Center everything initially */
+    justify-content: center;
     align-items: center;
-    position: relative; /* Needed for absolute positioning */
+    position: relative;
     width: 100%;
     height: 100px;
     background-color: #263F5C;
-    /* border: 1px solid black; */
     padding: 0 20px;
 }
 
 .nav-links-container {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Pushes the buttons to the right */
+    margin-left: auto;
 }
 
 .nav-logo {
     font-size: 50px;
     position: absolute;
     left: 40%;
-    transform: translateX(-50%); /* Ensures perfect centering */
+    transform: translateX(-50%);
     color: white;
     margin: 0;
     text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.4);
@@ -224,7 +223,7 @@ input#login-password, input#login-username, input#register-password, input#regis
 .habits-list-container{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     width:50%;
     height:auto;
 }
@@ -236,10 +235,11 @@ input#login-password, input#login-username, input#register-password, input#regis
 .habits-filterBtn-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     width:100%;
     height:50px;
+    padding-right: 110px;
 }
 
 .habit-btn {
@@ -288,8 +288,12 @@ button:hover {
     height:auto;
 }
 
+.habits-input-wrapper {
+    margin: 0px 0 0 80px;
+}
+
 .habits-fieldset {
-    margin: 2em 0;
+    margin: 2em 10px;
     padding: 1em 2em;
     border: 1px solid black;
     border-radius: 6px;
@@ -331,6 +335,7 @@ button:hover {
     margin-top: 5px;
     padding-left: 10px;
     background-color: #F5F5F5;
+    margin-right: 20px;
 }
 
 .habits-text-container {
@@ -372,26 +377,23 @@ button:hover {
     background-color:rgb(228, 226, 226);
 }
 
-/* Dropdown Button */
 .habits-dropbtn {
     background-color: #28a745;
     color: white;
     padding: 8px;
     font-size: 14px;
-    border: 1px solid black;
+    border: none;
     margin: 10px;
     width: 80px;
     height: 40px;
     border-radius: 5px;
   }
   
-  /* The container <div> - needed to position the dropdown content */
   .habits-dropdown {
     position: relative;
     display: inline-block;
   }
   
-  /* Dropdown Content (Hidden by Default) */
   .habits-dropdown-content {
     display: none;
     position: absolute;
@@ -408,7 +410,6 @@ button:hover {
     text-decoration: underline;
   }
   
-  /* Links inside the dropdown */
   .habits-dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -416,20 +417,12 @@ button:hover {
     display: block;
   }
   
-  /* Change color of dropdown links on hover */
   .habits-dropdown-content a:hover {background-color: #ddd;}
   
-  /* Show the dropdown menu on hover */
   .habits-dropdown:hover .habits-dropdown-content {display: block;}
   
-  /* Change the background color of the dropdown button when the dropdown content is shown */
   .habits-dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-
-
-
-  /* Todos and activities css */
-
+  
 
 .todo-list-container{
     display: inline-block;
@@ -479,13 +472,7 @@ button:hover {
       border-radius: 10px;
       gap: 10px;
   }
-  /* .todo-fieldset{
-      border: 1px solid black;
-      border-radius: 10px;
-      padding: -100px 100px 100px 100px;
-      gap: 10px;
-       
-  } */
+  
   .todo-legend{
       color: green;
       font-size: 40px;
@@ -504,7 +491,6 @@ button:hover {
       border-radius: 5px;
   }
   #category, #todo-deadline, #todo-time-estimate{
-      /**/
       height: 35px;
       border-radius: 5px;
   }
@@ -524,11 +510,6 @@ button:hover {
       text-align: left;
   }
   
-  /* .todo-sorting-button {
-      display: flex;
-      align-items: center;
-      gap: 100px;
-  } */
   .todo-dropdown-content {
       display: none;
       position:absolute;
@@ -567,7 +548,7 @@ button:hover {
   #todo-category{
       border: 0.5px solid black;
   }
-  /* styling to data that koms from localstorage */
+  
   .todo-history-list-container{
       display: inline-block;
       justify-items: center;

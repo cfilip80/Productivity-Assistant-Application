@@ -24,6 +24,7 @@
                 <div class="habits-dropdown">
                     <button class="habits-dropbtn">Sort</button>
                     <select id="sort-options" class="habits-dropdown-content">
+                        <option value="priority-none">No Sort</option>
                         <option value="priority-asc">Sort by priority (ascending)</option>
                         <option value="priority-desc">Sort by priority (descending)</option>
                         <option value="repetitions-asc">Sort by repetitions (ascending)</option>
@@ -33,18 +34,18 @@
                 <div class="habits-dropdown">
                     <button class="habits-dropbtn">Filter</button>
                     <div class="habits-dropdown-content">
-                        <a href="#" id="filter-low">Low</a>
-                        <a href="#" id="filter-medium">Medium</a>
-                        <a href="#" id="filter-high">High</a>
+                        <a href="#" id="filter-none">No Filter</a>
+                        <a href="#" id="filter-low">Low Priority</a>
+                        <a href="#" id="filter-medium">Medium Priority</a>
+                        <a href="#" id="filter-high">High Priority</a>
                     </div>
                 </div>
-                <button class="reset-btn">Reset Filter</button>
             </div>
             <div class="habits-list-wrapper"></div>
         </div>
         
         <div class="habits-input-container">
-            <section>
+            <section class="habits-input-wrapper">
                 <form id="new-habit">
                     <fieldset class="habits-fieldset">
                         <legend class="habits-legend">Create a New Habit</legend>

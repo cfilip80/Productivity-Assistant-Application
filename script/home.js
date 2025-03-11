@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
         welcomeMessageDiv.innerHTML = `<p>You are not logged in.</p>`;
     }
 
-    // Fetch a random quote from Quotable API
     fetch("https://dummyjson.com/quotes/random")
         .then(response => response.json())
         .then(data => {
@@ -76,9 +75,7 @@ function todoGetLastThreePendingTasks() {
     const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
     let storedData = userData.todos;
     let pendingTasks = storedData.filter(task => task.status !== "Completed");
-    // Sortera efter tid om objektet har en timestamp (nyaste först)
     pendingTasks.sort((a, b) => new Date(b.deadline) - new Date(a.deadline));
-    // Hämta de tre senaste ärendena
     let lastThreeTasks = pendingTasks.slice(0, 3);
 
     return lastThreeTasks;
