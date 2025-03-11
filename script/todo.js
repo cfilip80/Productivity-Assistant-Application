@@ -218,7 +218,12 @@ function todoDeleteItemFromLocalStorage(id) {
         data = [];
     }
 
-    data = data.filter(item => item.id !== id);
+    let updatedTodos = todosArray.filter(item => item.id !== id);
+
+    // Uppdatera användardata med den nya listan
+    userData.todos = updatedTodos;
+
+    // Save the updated object back under the logged-in user's key
     localStorage.setItem(loggedInUser, JSON.stringify(userData));
 
     console.log(`Item with ID ${id} deleted successfully!`);
