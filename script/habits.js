@@ -1,5 +1,3 @@
-const habitsTitle = document.getElementById("habits-title");
-const habitsRepetitions = document.getElementById("habits-repetitions");
 const loggedInUser = sessionStorage.getItem("loggedInUser");
 
 document.addEventListener("DOMContentLoaded", () => {
