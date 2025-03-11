@@ -43,13 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHabits();
 });
 
-const getHabitsDataFromLocalStorage = () => {
+const getUserDataFromLocalStorage = () => {
     const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
     return userData;
 }
 
 function renderHabits() {
-    let userData = getHabitsDataFromLocalStorage();
+    let userData = getUserDataFromLocalStorage();
 
     userData.habits.sort((a, b) => b.repetitions - a.repetitions);
     const topHabits = userData.habits.slice(0, 3);
@@ -72,7 +72,7 @@ function renderHabits() {
 document.addEventListener('DOMContentLoaded', todoDisplayData);
 
 function todoGetLastThreePendingTasks() {
-    const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
+    const userData = getUserDataFromLocalStorage();
     let storedData = userData.todos;
     let pendingTasks = storedData.filter(task => task.status !== "Completed");
     pendingTasks.sort((a, b) => new Date(b.deadline) - new Date(a.deadline));
@@ -81,7 +81,6 @@ function todoGetLastThreePendingTasks() {
     return lastThreeTasks;
 }
  
-
 function todoDisplayData(){
    let data = todoGetLastThreePendingTasks();
 
