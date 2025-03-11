@@ -34,9 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     todoDisplayDataFromLocalStorage();
 });
 
-// Clear form Function
+
 const todoClearForm = () => {
-    // set data to empty
     todoTitle.value = '';
     todoCategory.value = '';
     todoTimeEstimate.value = '';
@@ -54,18 +53,14 @@ function todoGetDataFromLocal(){
 function todoAddFormInputToLocalStorage(newObject) {
 
     let formInputs = todoGetDataFromLocal();
-     // Ensure the user has a todos array
      if (!formInputs.todos) {
         formInputs.todos = [];
     }
 
-    // Assign a unique key (ID) to the new object
     newObject.id = crypto.randomUUID();
 
-    // Add the new object to the array
     formInputs.todos.push(newObject);
 
-    // Save updated array back to localStorage
     localStorage.setItem(loggedInUser, JSON.stringify(formInputs));
     console.log("-------Data har skickats till LocalStorage-------")
 
@@ -77,72 +72,60 @@ function todoDisplayDataFromLocalStorage() {
     let formInputs = todoGetDataFromLocal();
     let todosArray = formInputs.todos;
 
-    // Get the filter and sorting values from the dropdowns
     const statusFilterValue = document.getElementById('filter-status-filter').value;
     const categoryFilterValue = document.getElementById('category-filter').value;
     const timeEstimateFilterValue = document.getElementById('time-estimate-filter').value;
     const deadlineFilterValue = document.getElementById('deadline-filter').value;
     const statusSortValue = document.getElementById('sorting-status-filter').value;
 
-    // Filter by status
     if (statusFilterValue !== "all") {
         const status = statusFilterValue === 'Completed' ? 'Completed' : 'Incomplete';
         todosArray = todosArray.filter(item => item.status === status);
     }
 
-    // Filter by category
     if (categoryFilterValue !== "all") {
         todosArray = todosArray.filter(item => item.category === categoryFilterValue);
     }
 
-    // Apply sorting logic
-    // Sort by status
     if (statusSortValue !== "all") {
         todosArray = todosArray.sort((a, b) => {
             if (statusSortValue === "Status-asc") {
-                // Sort "Completed" first, then "Incomplete"
-                return a.status === "Completed" ? -1 : 1; // Ascending order
+                return a.status === "Completed" ? -1 : 1;
             } else if (statusSortValue === "Status-desc") {
-                // Sort "Incomplete" first, then "Completed"
-                return a.status === "Incomplete" ? -1 : 1; // Descending order
+                return a.status === "Incomplete" ? -1 : 1;
             }
             return 0;
         });
     }
 
-    // Sort by time estimate
     if (timeEstimateFilterValue !== "all") {
         todosArray = todosArray.sort((a, b) => {
             if (timeEstimateFilterValue === "TimeEstimate-asc") {
-                return a.timeEstimate - b.timeEstimate; // Ascending order
+                return a.timeEstimate - b.timeEstimate;
             } else if (timeEstimateFilterValue === "TimeEstimate-desc") {
-                return b.timeEstimate - a.timeEstimate; // Descending order
+                return b.timeEstimate - a.timeEstimate;
             }
             return 0;
         });
     }
 
-    // Sort by deadline
     if (deadlineFilterValue !== "all") {
         todosArray = todosArray.sort((a, b) => {
             let dateA = new Date(a.deadline);
             let dateB = new Date(b.deadline);
             if (deadlineFilterValue === "Deadline-asc") {
-                return dateA - dateB; // Ascending order
+                return dateA - dateB;
             } else if (deadlineFilterValue === "Deadline-desc") {
-                return dateB - dateA; // Descending order
+                return dateB - dateA;
             }
             return 0;
         });
     }
 
-    // Get the container where the divs will be appended
     const todoHistoryListContainer = document.querySelector(".todo-history-list-container");
 
-    // Clear existing content to prevent duplication
     todoHistoryListContainer.innerHTML = "";
 
-    // Loop through the filtered and sorted data and create divs for each item
     todosArray.forEach(item => {
         let dataDiv = document.createElement("div");
         dataDiv.classList.add("todo-and-activities-list");
@@ -165,7 +148,6 @@ function todoDisplayDataFromLocalStorage() {
         todoHistoryListContainer.appendChild(dataDiv);
     });
 
-    // Add event listeners dynamically for edit and delete buttons
     document.querySelectorAll(".todoDelete").forEach(button => {
         button.addEventListener("click", function () {
             let itemId = this.getAttribute("data-id");
@@ -183,7 +165,7 @@ function todoDisplayDataFromLocalStorage() {
 
 
 function todoEditItemInLocalStorage(id) {
-    let userData = todoGetDataFromLocal();  // Get user-specific data
+    let userData = todoGetDataFromLocal();
     let todosArray = userData.todos || [];
     
     let foundObject = todosArray.find(item => item.id === id);
@@ -193,7 +175,6 @@ function todoEditItemInLocalStorage(id) {
         return;
     }
 
-    // Set form values
     todoTitle.value = foundObject.title; 
     todoCategory.value = foundObject.category;
     todoTimeEstimate.value = foundObject.timeEstimate;
@@ -202,15 +183,13 @@ function todoEditItemInLocalStorage(id) {
     todoDoneBox.checked = foundObject.status === "Completed";
     todoNotDoneBox.checked = foundObject.status === "Incomplete";
 
-    // Show & hide buttons
     todoSubmitButton.style.display = "none";
     todoSaveChangesButton.style.display = "block";
     todoClearButton.style.display = "block";
 
-    // Save changes when clicking "Save Changes"
     todoSaveChangesButton.onclick = function () {
         const updatedTodo = {
-            id: id,  // Keep the same ID
+            id: id,  
             title: todoTitle.value,
             category: todoCategory.value,
             timeEstimate: todoTimeEstimate.value,
@@ -220,17 +199,12 @@ function todoEditItemInLocalStorage(id) {
                    todoNotDoneBox.checked ? "Incomplete" : "",
         };
 
-        // Update the correct object in the user's todos array
         todosArray = todosArray.map(item => item.id === id ? { ...item, ...updatedTodo } : item);
-
-        // Save updated user data back to localStorage under the user's key
         localStorage.setItem(loggedInUser, JSON.stringify(userData));
 
-        // Clear form and refresh the displayed data
         todoClearForm();
         todoDisplayDataFromLocalStorage();
         
-        // Restore button visibility
         todoSubmitButton.style.display = "block";
         todoSaveChangesButton.style.display = "none";
         todoClearButton.style.display = "none";
@@ -238,27 +212,22 @@ function todoEditItemInLocalStorage(id) {
 }
 
 function todoDeleteItemFromLocalStorage(id) {
-    let userData = todoGetDataFromLocal(); // Get the existing user data
+    let userData = todoGetDataFromLocal();
     let data = userData.todos;
     if (!data) {
-        data = []; // Ensure there's a todos array
+        data = [];
     }
 
-    // Filter out the item with the matching ID
     data = data.filter(item => item.id !== id);
-
-    // Save the updated object back under the logged-in user's key
     localStorage.setItem(loggedInUser, JSON.stringify(userData));
 
     console.log(`Item with ID ${id} deleted successfully!`);
 
-    // Refresh the displayed data
     todoDisplayDataFromLocalStorage();
 }
 
 todoForm.addEventListener("submit", function(event) {
-    event.preventDefault(); // Förhindra att sidan laddas om
-    // svae data in object 
+    event.preventDefault();
     const todoData = {
         title: todoTitle.value,
         category: todoCategory.value,

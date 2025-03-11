@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const showRegisterLink = document.getElementById("show-register");
     const showLoginLink = document.getElementById("show-login");
 
-    // Switch between login and register forms
     showRegisterLink.addEventListener("click", () => {
         loginForm.style.display = "none";
         registerForm.style.display = "flex";
@@ -22,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
         formTitle.innerText = "Login";
     });
 
-    // Register New User
     registerForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const username = document.getElementById("register-username").value.trim();
@@ -33,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Store user credentials in localStorage
         const userData = { password, todos: [], habits: [] };
         localStorage.setItem(username, JSON.stringify(userData));
 
@@ -42,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
         showLoginLink.click();
     });
 
-    // Login User
     loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const username = document.getElementById("login-username").value.trim();
@@ -60,9 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Save logged-in user in sessionStorage
         sessionStorage.setItem("loggedInUser", username);
-        // alert("Login successful!");
-        window.location.href = "index.html"; // Redirect to index page
+        window.location.href = "index.html";
     });
 });

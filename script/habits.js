@@ -41,6 +41,11 @@ document.getElementById("sort-options").addEventListener("change", () => {
     renderHabits();
 });
 
+document.querySelector('#filter-none').addEventListener('click', () => {
+    habitsFilterOptions = "";       
+    renderHabits();                 
+});
+
 document.getElementById("filter-low").addEventListener("click", () => {
     habitsFilterOptions = "Low";
     renderHabits();
@@ -58,14 +63,7 @@ document.getElementById("filter-high").addEventListener("click", () => {
 
 document.querySelector('.clear-btn').addEventListener('click', habitsClearForm);
 
-// Reset sort and filter
-document.querySelector('.reset-btn').addEventListener('click', () => {
-    habitsSortOptions = "priority";
-    habitsFilterOptions = "";       
-    renderHabits();                 
-});
 
-// Radiobuttons checker
 let habitsRadioButtonIsChecked = () => {
     let low = document.getElementById("priority-low");
     let medium = document.getElementById("priority-medium");
@@ -109,12 +107,13 @@ function renderHabits() {
         habits.sort((a, b) => a.repetitions - b.repetitions);
     } else if (selectedSortOption === "repetitions-desc") {
         habits.sort((a, b) => b.repetitions - a.repetitions);
+    } else if (selectedSortOption === "priority-none") {
+        habitsFilterOptions = "";
     }
 
     const habitsListContainer = document.querySelector(".habits-list-wrapper");
-    // habitsListContainer.innerHTML = '<h2 class="h2-list-title">List of Habits</h2>';
-
-    // Render each habit in the list
+    habitsListContainer.innerHTML = '';
+  
     habits.forEach(habit => {
         const habitDiv = document.createElement('div');
         habitDiv.classList.add('habit');
@@ -149,7 +148,6 @@ function editHabit(habitId) {
 
     if (!habit) return;
 
-    // Populate form fields
     document.getElementById("habits-title").value = habit.title;
     document.getElementById("habits-repetitions").value = habit.repetitions;
     
