@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("https://dummyjson.com/quotes/random")
         .then(response => response.json())
         .then(data => {
-            quoteContainer.innerHTML = `<p><i>"${data.quote}"</i> - ${data.author}</p>`;
+            quoteContainer.innerHTML = `
+            <h2>Quote of the day:</h2>
+            <p><i>"${data.quote}"</i> - ${data.author}</p>`;
         })
         .catch(error => {
             quoteContainer.innerHTML = `<p>Could not load quote. Try again later.</p>`;
