@@ -1,4 +1,6 @@
 const loggedInUser = sessionStorage.getItem("loggedInUser");
+let habitsSortOptions = "priority";
+let habitsFilterOptions = "";
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginBtn = document.getElementById("login-btn");
@@ -22,65 +24,36 @@ document.addEventListener("DOMContentLoaded", () => {
     renderHabits();
 });
 
-function saveUserData(updatedData) {
-    localStorage.setItem(loggedInUser, JSON.stringify(updatedData));
-}
-
 const getHabitsDataFromLocalStorage = () => {
     const userData = JSON.parse(localStorage.getItem(loggedInUser)) || { password: "", todos: [], habits: [] };
     return userData;
 }
 
+document.querySelector('#new-habit').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-let habitsSortOptions = "priority";
-let habitsFilterOptions = "";
+    const habitId = e.target.querySelector('.habit-btn').getAttribute('data-id');
+    let userData = getHabitsDataFromLocalStorage();
 
-document.getElementById("sort-options").addEventListener("change", () => {
-    renderHabits();
-});
+    const habit = {
+        id: habitId ? habitId : crypto.randomUUID(),
+        title: e.target.elements['habits-title'].value,
+        repetitions: e.target.elements['habits-repetitions'].value,
+        priority: habitsRadioButtonIsChecked(),
+    };
 
-document.querySelector('#filter-none').addEventListener('click', () => {
-    habitsFilterOptions = "";       
-    renderHabits();                 
-});
-
-document.getElementById("filter-low").addEventListener("click", () => {
-    habitsFilterOptions = "Low";
-    renderHabits();
-});
-
-document.getElementById("filter-medium").addEventListener("click", () => {
-    habitsFilterOptions = "Medium";
-    renderHabits();
-});
-
-document.getElementById("filter-high").addEventListener("click", () => {
-    habitsFilterOptions = "High";
-    renderHabits();
-});
-
-document.querySelector('.clear-btn').addEventListener('click', habitsClearForm);
-
-
-let habitsRadioButtonIsChecked = () => {
-    let low = document.getElementById("priority-low");
-    let medium = document.getElementById("priority-medium");
-    let high = document.getElementById("priority-high");
-    if (low.checked)
-        return low.value;
-    else if(medium.checked)
-        return medium.value;
-    else if(high.checked)
-        return high.value;
-}
-
-function habitsClearForm() {
-    document.getElementById("new-habit").reset();
+    if (habitId) {
+        userData.habits = userData.habits.map(h => (h.id === habitId ? { ...h, ...habit } : h));
+    } else {
+        userData.habits.push(habit);
+    }
+    saveUserData(userData);
+    e.target.reset();
     const submitButton = document.querySelector(".habit-btn");
-    submitButton.removeAttribute('data-id');
     submitButton.textContent = "Add Habit";
-}
-
+    submitButton.removeAttribute('data-id');
+    renderHabits();
+});
 
 function renderHabits() {
     let userData = getHabitsDataFromLocalStorage();
@@ -131,6 +104,57 @@ function renderHabits() {
     });
 }
 
+function saveUserData(updatedData) {
+    localStorage.setItem(loggedInUser, JSON.stringify(updatedData));
+}
+
+document.getElementById("sort-options").addEventListener("change", () => {
+    renderHabits();
+});
+
+document.querySelector('#filter-none').addEventListener('click', () => {
+    habitsFilterOptions = "";       
+    renderHabits();                 
+});
+
+document.getElementById("filter-low").addEventListener("click", () => {
+    habitsFilterOptions = "Low";
+    renderHabits();
+});
+
+document.getElementById("filter-medium").addEventListener("click", () => {
+    habitsFilterOptions = "Medium";
+    renderHabits();
+});
+
+document.getElementById("filter-high").addEventListener("click", () => {
+    habitsFilterOptions = "High";
+    renderHabits();
+});
+
+document.querySelector('.clear-btn').addEventListener('click', habitsClearForm);
+
+
+let habitsRadioButtonIsChecked = () => {
+    let low = document.getElementById("priority-low");
+    let medium = document.getElementById("priority-medium");
+    let high = document.getElementById("priority-high");
+    if (low.checked)
+        return low.value;
+    else if(medium.checked)
+        return medium.value;
+    else if(high.checked)
+        return high.value;
+}
+
+function habitsClearForm() {
+    document.getElementById("new-habit").reset();
+    const submitButton = document.querySelector(".habit-btn");
+    submitButton.removeAttribute('data-id');
+    submitButton.textContent = "Add Habit";
+}
+
+
 function removeHabit(habitId) {
     let userData = getHabitsDataFromLocalStorage();
     userData.habits = userData.habits.filter(habit => habit.id !== habitId);
@@ -161,29 +185,3 @@ function editHabit(habitId) {
     submitButton.textContent = "Update Habit";
     submitButton.setAttribute('data-id', habit.id);
 }
-
-document.querySelector('#new-habit').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const habitId = e.target.querySelector('.habit-btn').getAttribute('data-id');
-    let userData = getHabitsDataFromLocalStorage();
-
-    const habit = {
-        id: habitId ? habitId : crypto.randomUUID(),
-        title: e.target.elements['habits-title'].value,
-        repetitions: e.target.elements['habits-repetitions'].value,
-        priority: habitsRadioButtonIsChecked(),
-    };
-
-    if (habitId) {
-        userData.habits = userData.habits.map(h => (h.id === habitId ? { ...h, ...habit } : h));
-    } else {
-        userData.habits.push(habit);
-    }
-    saveUserData(userData);
-    e.target.reset();
-    const submitButton = document.querySelector(".habit-btn");
-    submitButton.textContent = "Add Habit";
-    submitButton.removeAttribute('data-id');
-    renderHabits();
-});
